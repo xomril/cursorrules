@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://yourusername.github.io/cursorrules-guide/sitemap.xml
+Sitemap: https://xomril.github.io/cursorrules/sitemap.xml

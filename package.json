@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/yourusername/cursorrules-guide.git"
+    "url": "https://github.com/xomril/cursorrules.git"
   },
   "keywords": [
     "cursor",
@@ -25,9 +25,9 @@
   "author": "Your Name",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/yourusername/cursorrules-guide/issues"
+    "url": "https://github.com/xomril/cursorrules/issues"
   },
-  "homepage": "https://yourusername.github.io/cursorrules-guide",
+  "homepage": "https://xomril.github.io/cursorrules",
   "devDependencies": {},
   "dependencies": {}
 }

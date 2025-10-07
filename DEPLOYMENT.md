@@ -10,15 +10,15 @@ This guide will help you deploy the CursorRules Guide website to GitHub Pages.
 
 ## Step 1: Fork the Repository
 
-1. Go to the [CursorRules Guide repository](https://github.com/yourusername/cursorrules-guide)
+1. Go to the [CursorRules Guide repository](https://github.com/xomril/cursorrules)
 2. Click the "Fork" button in the top-right corner
 3. Choose your GitHub account as the destination
 
 ## Step 2: Clone Your Fork
 
 ```bash
-git clone https://github.com/yourusername/cursorrules-guide.git
-cd cursorrules-guide
+git clone https://github.com/xomril/cursorrules.git
+cd cursorrules
 ```
 
 ## Step 3: Enable GitHub Pages
@@ -54,7 +54,7 @@ git push origin main
 ```
 
 2. Wait for GitHub Pages to build (usually takes 1-2 minutes)
-3. Your site will be available at: `https://yourusername.github.io/cursorrules-guide`
+3. Your site will be available at: `https://yourusername.github.io/cursorrules`
 
 ## Custom Domain (Optional)
 
