@@ -256,6 +256,110 @@
             font-size: 0.875rem;
             overflow-x: auto;
             margin: var(--space-4) 0;
+            position: relative;
+            max-height: 500px;
+            overflow-y: auto;
+            border: 1px solid var(--gray-8);
+        }
+        
+        .code-block::before {
+            content: attr(data-lang);
+            position: absolute;
+            top: var(--space-2);
+            right: var(--space-4);
+            background: var(--gray-7);
+            color: var(--gray-3);
+            padding: var(--space-1) var(--space-2);
+            border-radius: 4px;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            z-index: 1;
+        }
+        
+        .code-block pre {
+            background: none;
+            color: inherit;
+            padding: 0;
+            margin: 0;
+            font-family: inherit;
+            font-size: inherit;
+            line-height: 1.5;
+            overflow: visible;
+        }
+        
+        .code-block code {
+            background: none;
+            color: inherit;
+            padding: 0;
+            font-family: inherit;
+            font-size: inherit;
+        }
+        
+        /* Syntax Highlighting for .cursorrules */
+        .code-block .comment {
+            color: #6a9955;
+            font-style: italic;
+        }
+        
+        .code-block .keyword {
+            color: #569cd6;
+            font-weight: 600;
+        }
+        
+        .code-block .string {
+            color: #ce9178;
+        }
+        
+        .code-block .number {
+            color: #b5cea8;
+        }
+        
+        .code-block .function {
+            color: #dcdcaa;
+        }
+        
+        .code-block .variable {
+            color: #9cdcfe;
+        }
+        
+        .code-block .heading {
+            color: #4ec9b0;
+            font-weight: 600;
+        }
+        
+        .code-block .list-item {
+            color: #d4d4d4;
+        }
+        
+        /* Copy Button */
+        .copy-btn {
+            position: absolute;
+            top: var(--space-2);
+            right: var(--space-12);
+            background: var(--gray-7);
+            color: var(--gray-2);
+            border: none;
+            border-radius: 4px;
+            padding: var(--space-1) var(--space-2);
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            opacity: 0;
+            z-index: 2;
+        }
+        
+        .code-block:hover .copy-btn {
+            opacity: 1;
+        }
+        
+        .copy-btn:hover {
+            background: var(--gray-6);
+            color: var(--gray-1);
+        }
+        
+        .copy-btn.copied {
+            background: var(--success);
+            color: var(--paper);
         }
         
         /* Footer */
@@ -385,27 +489,27 @@
             <h2>What are .cursorrules?</h2>
             <p>.cursorrules files are configuration files that define how Cursor IDE's AI assistant should behave in your project. They allow you to customize the AI's coding style, preferences, and behavior to match your team's standards and project requirements.</p>
             
-            <div class="code-block">
-# Example .cursorrules file
-You are an expert React developer specializing in modern web applications.
+            <div class="code-block" data-lang="cursorrules">
+<pre><code><span class="comment"># Example .cursorrules file</span>
+<span class="keyword">You are an expert React developer</span> specializing in modern web applications.
 
-## Coding Standards
-- Use TypeScript for all new files
-- Follow React best practices and hooks patterns
-- Implement proper error handling
-- Write comprehensive tests for all components
+<span class="heading">## Coding Standards</span>
+<span class="list-item">- Use TypeScript for all new files</span>
+<span class="list-item">- Follow React best practices and hooks patterns</span>
+<span class="list-item">- Implement proper error handling</span>
+<span class="list-item">- Write comprehensive tests for all components</span>
 
-## Project Structure
-- Components go in src/components/
-- Utils go in src/utils/
-- Types go in src/types/
-- Tests go in __tests__/ directory
+<span class="heading">## Project Structure</span>
+<span class="list-item">- Components go in src/components/</span>
+<span class="list-item">- Utils go in src/utils/</span>
+<span class="list-item">- Types go in src/types/</span>
+<span class="list-item">- Tests go in __tests__/ directory</span>
 
-## Code Style
-- Use Prettier for formatting
-- Follow ESLint rules
-- Use meaningful variable names
-- Add JSDoc comments for complex functions
+<span class="heading">## Code Style</span>
+<span class="list-item">- Use Prettier for formatting</span>
+<span class="list-item">- Follow ESLint rules</span>
+<span class="list-item">- Use meaningful variable names</span>
+<span class="list-item">- Add JSDoc comments for complex functions</span></code></pre>
             </div>
         </section>
         
@@ -456,16 +560,16 @@ You are an expert React developer specializing in modern web applications.
             <h2>Quick Start</h2>
             <p>Ready to get started? Follow these simple steps to create your first .cursorrules file:</p>
             
-            <div class="code-block">
-# Step 1: Create .cursorrules file
-touch .cursorrules
+            <div class="code-block" data-lang="bash">
+<pre><code><span class="comment"># Step 1: Create .cursorrules file</span>
+<span class="function">touch</span> <span class="string">.cursorrules</span>
 
-# Step 2: Add your rules
-echo "You are an expert developer..." >> .cursorrules
+<span class="comment"># Step 2: Add your rules</span>
+<span class="function">echo</span> <span class="string">"You are an expert developer..."</span> <span class="variable">>></span> <span class="string">.cursorrules</span>
 
-# Step 3: Commit to version control
-git add .cursorrules
-git commit -m "Add .cursorrules configuration"
+<span class="comment"># Step 3: Commit to version control</span>
+<span class="function">git</span> <span class="variable">add</span> <span class="string">.cursorrules</span>
+<span class="function">git</span> <span class="variable">commit</span> <span class="variable">-m</span> <span class="string">"Add .cursorrules configuration"</span></code></pre>
             </div>
             
             <p>For detailed instructions and advanced configurations, check out our comprehensive guides below.</p>
@@ -486,5 +590,47 @@ git commit -m "Add .cursorrules configuration"
     
     <!-- Load main JavaScript -->
     <script src="assets/js/app.js"></script>
-</body>
-</html>
+    <script>
+        // Copy to clipboard functionality
+        function setupCopyButtons() {
+            const codeBlocks = document.querySelectorAll('.code-block');
+            
+            codeBlocks.forEach(block => {
+                // Create copy button
+                const copyBtn = document.createElement('button');
+                copyBtn.className = 'copy-btn';
+                copyBtn.textContent = 'Copy';
+                copyBtn.setAttribute('aria-label', 'Copy code to clipboard');
+                
+                // Add copy button to code block
+                block.style.position = 'relative';
+                block.appendChild(copyBtn);
+                
+                // Copy functionality
+                copyBtn.addEventListener('click', async () => {
+                    const code = block.querySelector('code');
+                    const text = code.textContent;
+                    
+                    try {
+                        await navigator.clipboard.writeText(text);
+                        copyBtn.textContent = 'Copied!';
+                        copyBtn.classList.add('copied');
+                        
+                        setTimeout(() => {
+                            copyBtn.textContent = 'Copy';
+                            copyBtn.classList.remove('copied');
+                        }, 2000);
+                    } catch (err) {
+                        console.error('Failed to copy text: ', err);
+                        copyBtn.textContent = 'Failed';
+                        setTimeout(() => {
+                            copyBtn.textContent = 'Copy';
+                        }, 2000);
+                    }
+                });
+            });
+        }
+        
+        // Initialize when DOM is loaded
+        document.addEventListener('DOMContentLoaded', setupCopyButtons);
+    </script>

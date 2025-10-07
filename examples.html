@@ -204,12 +204,13 @@
             border-radius: 8px;
             padding: var(--space-4);
             font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
-            font-size: 0.8rem;
+            font-size: 0.875rem;
             overflow-x: auto;
             margin: var(--space-4) 0;
             position: relative;
-            max-height: 400px;
+            max-height: 500px;
             overflow-y: auto;
+            border: 1px solid var(--gray-8);
         }
         
         .code-block::before {
@@ -223,6 +224,62 @@
             border-radius: 4px;
             font-size: 0.75rem;
             text-transform: uppercase;
+            z-index: 1;
+        }
+        
+        .code-block pre {
+            background: none;
+            color: inherit;
+            padding: 0;
+            margin: 0;
+            font-family: inherit;
+            font-size: inherit;
+            line-height: 1.5;
+            overflow: visible;
+        }
+        
+        .code-block code {
+            background: none;
+            color: inherit;
+            padding: 0;
+            font-family: inherit;
+            font-size: inherit;
+        }
+        
+        /* Syntax Highlighting for .cursorrules */
+        .code-block .comment {
+            color: #6a9955;
+            font-style: italic;
+        }
+        
+        .code-block .keyword {
+            color: #569cd6;
+            font-weight: 600;
+        }
+        
+        .code-block .string {
+            color: #ce9178;
+        }
+        
+        .code-block .number {
+            color: #b5cea8;
+        }
+        
+        .code-block .function {
+            color: #dcdcaa;
+        }
+        
+        .code-block .variable {
+            color: #9cdcfe;
+        }
+        
+        .code-block .heading {
+            color: #4ec9b0;
+            font-weight: 600;
+        }
+        
+        .code-block .list-item {
+            color: #d4d4d4;
         }
         
         /* Copy Button */
@@ -372,67 +429,67 @@
                         <p class="example-description">Modern React development with TypeScript, hooks, and testing</p>
                     </div>
                     <div class="example-content">
-                        <div class="code-block" data-lang="text">
-# React + TypeScript Developer
-You are an expert React developer specializing in modern web applications with TypeScript.
+                        <div class="code-block" data-lang="cursorrules">
+<pre><code><span class="comment"># React + TypeScript Developer</span>
+<span class="keyword">You are an expert React developer</span> specializing in modern web applications with TypeScript.
 
-## Project Context
-This is a React application built with TypeScript, using modern hooks, functional components, and modern React patterns.
+<span class="heading">## Project Context</span>
+<span class="string">This is a React application built with TypeScript, using modern hooks, functional components, and modern React patterns.</span>
 
-## Coding Standards
-- Use TypeScript for all new files with strict type checking
-- Prefer functional components over class components
-- Use React hooks (useState, useEffect, useCallback, useMemo, etc.)
-- Implement proper error handling with Error Boundaries
-- Write comprehensive tests using Jest and React Testing Library
-- Use React Query/TanStack Query for data fetching
-- Implement proper loading and error states
+<span class="heading">## Coding Standards</span>
+<span class="list-item">- Use TypeScript for all new files with strict type checking</span>
+<span class="list-item">- Prefer functional components over class components</span>
+<span class="list-item">- Use React hooks (useState, useEffect, useCallback, useMemo, etc.)</span>
+<span class="list-item">- Implement proper error handling with Error Boundaries</span>
+<span class="list-item">- Write comprehensive tests using Jest and React Testing Library</span>
+<span class="list-item">- Use React Query/TanStack Query for data fetching</span>
+<span class="list-item">- Implement proper loading and error states</span>
 
-## File Structure
-- Components go in src/components/
-- Pages go in src/pages/
-- Hooks go in src/hooks/
-- Utils go in src/utils/
-- Types go in src/types/
-- Services go in src/services/
-- Tests go in __tests__/ directory
-- Styles go in src/styles/
+<span class="heading">## File Structure</span>
+<span class="list-item">- Components go in src/components/</span>
+<span class="list-item">- Pages go in src/pages/</span>
+<span class="list-item">- Hooks go in src/hooks/</span>
+<span class="list-item">- Utils go in src/utils/</span>
+<span class="list-item">- Types go in src/types/</span>
+<span class="list-item">- Services go in src/services/</span>
+<span class="list-item">- Tests go in __tests__/ directory</span>
+<span class="list-item">- Styles go in src/styles/</span>
 
-## Code Style
-- Use Prettier for code formatting
-- Follow ESLint rules with React and TypeScript plugins
-- Use meaningful variable and function names
-- Add JSDoc comments for complex functions
-- Use const/let instead of var
-- Prefer arrow functions for consistency
+<span class="heading">## Code Style</span>
+<span class="list-item">- Use Prettier for code formatting</span>
+<span class="list-item">- Follow ESLint rules with React and TypeScript plugins</span>
+<span class="list-item">- Use meaningful variable and function names</span>
+<span class="list-item">- Add JSDoc comments for complex functions</span>
+<span class="list-item">- Use const/let instead of var</span>
+<span class="list-item">- Prefer arrow functions for consistency</span>
 
-## Component Guidelines
-- Always include proper TypeScript interfaces for props
-- Use React.memo for performance optimization when needed
-- Implement proper accessibility with ARIA attributes
-- Use semantic HTML elements
-- Follow mobile-first responsive design principles
-- Use CSS modules or styled-components for styling
+<span class="heading">## Component Guidelines</span>
+<span class="list-item">- Always include proper TypeScript interfaces for props</span>
+<span class="list-item">- Use React.memo for performance optimization when needed</span>
+<span class="list-item">- Implement proper accessibility with ARIA attributes</span>
+<span class="list-item">- Use semantic HTML elements</span>
+<span class="list-item">- Follow mobile-first responsive design principles</span>
+<span class="list-item">- Use CSS modules or styled-components for styling</span>
 
-## State Management
-- Use React Context for global state when needed
-- Prefer local state with useState for component-specific data
-- Use useReducer for complex state logic
-- Implement proper state normalization for complex data
+<span class="heading">## State Management</span>
+<span class="list-item">- Use React Context for global state when needed</span>
+<span class="list-item">- Prefer local state with useState for component-specific data</span>
+<span class="list-item">- Use useReducer for complex state logic</span>
+<span class="list-item">- Implement proper state normalization for complex data</span>
 
-## Performance
-- Use React.lazy for code splitting
-- Implement proper memoization with useMemo and useCallback
-- Optimize re-renders with React.memo
-- Use proper key props for lists
-- Implement virtual scrolling for large lists
+<span class="heading">## Performance</span>
+<span class="list-item">- Use React.lazy for code splitting</span>
+<span class="list-item">- Implement proper memoization with useMemo and useCallback</span>
+<span class="list-item">- Optimize re-renders with React.memo</span>
+<span class="list-item">- Use proper key props for lists</span>
+<span class="list-item">- Implement virtual scrolling for large lists</span>
 
-## Testing
-- Write unit tests for all utility functions
-- Write integration tests for components
-- Test user interactions and accessibility
-- Use MSW for API mocking
-- Aim for 80%+ code coverage
+<span class="heading">## Testing</span>
+<span class="list-item">- Write unit tests for all utility functions</span>
+<span class="list-item">- Write integration tests for components</span>
+<span class="list-item">- Test user interactions and accessibility</span>
+<span class="list-item">- Use MSW for API mocking</span>
+<span class="list-item">- Aim for 80%+ code coverage</span></code></pre>
                         </div>
                     </div>
                 </div>
@@ -444,70 +501,70 @@ This is a React application built with TypeScript, using modern hooks, functiona
                         <p class="example-description">Modern Vue.js development with Composition API and TypeScript</p>
                     </div>
                     <div class="example-content">
-                        <div class="code-block" data-lang="text">
-# Vue.js 3 Developer
-You are an expert Vue.js developer specializing in Vue 3 with Composition API and TypeScript.
+                        <div class="code-block" data-lang="cursorrules">
+<pre><code><span class="comment"># Vue.js 3 Developer</span>
+<span class="keyword">You are an expert Vue.js developer</span> specializing in Vue 3 with Composition API and TypeScript.
 
-## Project Context
-This is a Vue 3 application using Composition API, TypeScript, Vite, and modern Vue ecosystem tools.
+<span class="heading">## Project Context</span>
+<span class="string">This is a Vue 3 application using Composition API, TypeScript, Vite, and modern Vue ecosystem tools.</span>
 
-## Coding Standards
-- Use Vue 3 Composition API for all components
-- Use TypeScript with Vue 3 for type safety
-- Use <script setup> syntax for cleaner code
-- Implement proper error handling with error boundaries
-- Write comprehensive tests using Vitest and Vue Test Utils
-- Use Pinia for state management
-- Implement proper loading and error states
+<span class="heading">## Coding Standards</span>
+<span class="list-item">- Use Vue 3 Composition API for all components</span>
+<span class="list-item">- Use TypeScript with Vue 3 for type safety</span>
+<span class="list-item">- Use &lt;script setup&gt; syntax for cleaner code</span>
+<span class="list-item">- Implement proper error handling with error boundaries</span>
+<span class="list-item">- Write comprehensive tests using Vitest and Vue Test Utils</span>
+<span class="list-item">- Use Pinia for state management</span>
+<span class="list-item">- Implement proper loading and error states</span>
 
-## File Structure
-- Components go in src/components/
-- Views go in src/views/
-- Composables go in src/composables/
-- Stores go in src/stores/
-- Utils go in src/utils/
-- Types go in src/types/
-- Tests go in __tests__/ directory
-- Styles go in src/styles/
+<span class="heading">## File Structure</span>
+<span class="list-item">- Components go in src/components/</span>
+<span class="list-item">- Views go in src/views/</span>
+<span class="list-item">- Composables go in src/composables/</span>
+<span class="list-item">- Stores go in src/stores/</span>
+<span class="list-item">- Utils go in src/utils/</span>
+<span class="list-item">- Types go in src/types/</span>
+<span class="list-item">- Tests go in __tests__/ directory</span>
+<span class="list-item">- Styles go in src/styles/</span>
 
-## Code Style
-- Use Prettier for code formatting
-- Follow ESLint rules with Vue and TypeScript plugins
-- Use meaningful variable and function names
-- Add JSDoc comments for complex functions
-- Use const/let instead of var
-- Prefer arrow functions for consistency
+<span class="heading">## Code Style</span>
+<span class="list-item">- Use Prettier for code formatting</span>
+<span class="list-item">- Follow ESLint rules with Vue and TypeScript plugins</span>
+<span class="list-item">- Use meaningful variable and function names</span>
+<span class="list-item">- Add JSDoc comments for complex functions</span>
+<span class="list-item">- Use const/let instead of var</span>
+<span class="list-item">- Prefer arrow functions for consistency</span>
 
-## Component Guidelines
-- Use <script setup> syntax for all components
-- Always include proper TypeScript interfaces for props
-- Use defineProps and defineEmits with TypeScript
-- Implement proper accessibility with ARIA attributes
-- Use semantic HTML elements
-- Follow mobile-first responsive design principles
-- Use CSS modules or scoped styles
+<span class="heading">## Component Guidelines</span>
+<span class="list-item">- Use &lt;script setup&gt; syntax for all components</span>
+<span class="list-item">- Always include proper TypeScript interfaces for props</span>
+<span class="list-item">- Use defineProps and defineEmits with TypeScript</span>
+<span class="list-item">- Implement proper accessibility with ARIA attributes</span>
+<span class="list-item">- Use semantic HTML elements</span>
+<span class="list-item">- Follow mobile-first responsive design principles</span>
+<span class="list-item">- Use CSS modules or scoped styles</span>
 
-## Composition API Patterns
-- Use reactive() for reactive objects
-- Use ref() for primitive values
-- Use computed() for derived state
-- Use watchEffect() for side effects
-- Use provide/inject for dependency injection
-- Create custom composables for reusable logic
+<span class="heading">## Composition API Patterns</span>
+<span class="list-item">- Use reactive() for reactive objects</span>
+<span class="list-item">- Use ref() for primitive values</span>
+<span class="list-item">- Use computed() for derived state</span>
+<span class="list-item">- Use watchEffect() for side effects</span>
+<span class="list-item">- Use provide/inject for dependency injection</span>
+<span class="list-item">- Create custom composables for reusable logic</span>
 
-## Performance
-- Use defineAsyncComponent for code splitting
-- Implement proper memoization with computed
-- Use v-memo for expensive list rendering
-- Use proper key props for lists
-- Implement virtual scrolling for large lists
+<span class="heading">## Performance</span>
+<span class="list-item">- Use defineAsyncComponent for code splitting</span>
+<span class="list-item">- Implement proper memoization with computed</span>
+<span class="list-item">- Use v-memo for expensive list rendering</span>
+<span class="list-item">- Use proper key props for lists</span>
+<span class="list-item">- Implement virtual scrolling for large lists</span>
 
-## Testing
-- Write unit tests for all composables
-- Write integration tests for components
-- Test user interactions and accessibility
-- Use MSW for API mocking
-- Aim for 80%+ code coverage
+<span class="heading">## Testing</span>
+<span class="list-item">- Write unit tests for all composables</span>
+<span class="list-item">- Write integration tests for components</span>
+<span class="list-item">- Test user interactions and accessibility</span>
+<span class="list-item">- Use MSW for API mocking</span>
+<span class="list-item">- Aim for 80%+ code coverage</span></code></pre>
                         </div>
                     </div>
                 </div>
@@ -916,5 +973,47 @@ This is a Python data science project using pandas, NumPy, scikit-learn, and mod
     </main>
     
     <script src="assets/js/app.js"></script>
-</body>
-</html>
+    <script>
+        // Copy to clipboard functionality
+        function setupCopyButtons() {
+            const codeBlocks = document.querySelectorAll('.code-block');
+            
+            codeBlocks.forEach(block => {
+                // Create copy button
+                const copyBtn = document.createElement('button');
+                copyBtn.className = 'copy-btn';
+                copyBtn.textContent = 'Copy';
+                copyBtn.setAttribute('aria-label', 'Copy code to clipboard');
+                
+                // Add copy button to code block
+                block.style.position = 'relative';
+                block.appendChild(copyBtn);
+                
+                // Copy functionality
+                copyBtn.addEventListener('click', async () => {
+                    const code = block.querySelector('code');
+                    const text = code.textContent;
+                    
+                    try {
+                        await navigator.clipboard.writeText(text);
+                        copyBtn.textContent = 'Copied!';
+                        copyBtn.classList.add('copied');
+                        
+                        setTimeout(() => {
+                            copyBtn.textContent = 'Copy';
+                            copyBtn.classList.remove('copied');
+                        }, 2000);
+                    } catch (err) {
+                        console.error('Failed to copy text: ', err);
+                        copyBtn.textContent = 'Failed';
+                        setTimeout(() => {
+                            copyBtn.textContent = 'Copy';
+                        }, 2000);
+                    }
+                });
+            });
+        }
+        
+        // Initialize when DOM is loaded
+        document.addEventListener('DOMContentLoaded', setupCopyButtons);
+    </script>
