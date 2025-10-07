@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Real-world .cursorrules examples for different technologies and project types">
+    <meta name="keywords" content="cursor IDE, .cursorrules, examples, templates, React, Node.js, Python, Vue">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <style>
+        :root {
+            --ink: #000;
+            --paper: #fff;
+            --gray-1: #f5f5f5;
+            --gray-2: #e5e5e5;
+            --gray-3: #d4d4d4;
+            --gray-4: #a3a3a4;
+            --gray-5: #737373;
+            --gray-6: #525252;
+            --gray-7: #404040;
+            --gray-8: #262626;
+            --gray-9: #171717;
+            --gray-10: #0a0a0a;
+            --accent: #3b82f6;
+            --accent-hover: #2563eb;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --error: #ef4444;
+            --space-1: 0.25rem;
+            --space-2: 0.5rem;
+            --space-3: 0.75rem;
+            --space-4: 1rem;
+            --space-5: 1.5rem;
+            --space-6: 2rem;
+            --space-7: 3rem;
+            --space-8: 4rem;
+            --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+            --ease-spring: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, system-ui, sans-serif;
+            line-height: 1.6;
+            color: var(--ink);
+            background: var(--paper);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--gray-2);
+            z-index: 1000;
+            padding: var(--space-4) 0;
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--space-6);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .nav-logo {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--ink);
+            text-decoration: none;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: var(--space-6);
+            list-style: none;
+        }
+        
+        .nav-links a {
+            color: var(--gray-6);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+        
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+        
+        /* Main Content */
+        .main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: calc(80px + var(--space-8)) var(--space-6) var(--space-8);
+        }
+        
+        .page-header {
+            text-align: center;
+            margin-bottom: var(--space-8);
+        }
+        
+        .page-title {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: var(--space-4);
+            color: var(--gray-8);
+        }
+        
+        .page-subtitle {
+            font-size: 1.25rem;
+            color: var(--gray-6);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .section {
+            margin-bottom: var(--space-8);
+        }
+        
+        .section h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: var(--space-4);
+            color: var(--gray-8);
+            border-bottom: 2px solid var(--accent);
+            padding-bottom: var(--space-2);
+        }
+        
+        .section h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: var(--space-3);
+            color: var(--gray-7);
+        }
+        
+        .section p {
+            font-size: 1.125rem;
+            color: var(--gray-6);
+            margin-bottom: var(--space-4);
+        }
+        
+        /* Example Cards */
+        .examples-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: var(--space-6);
+            margin-bottom: var(--space-8);
+        }
+        
+        .example-card {
+            background: var(--paper);
+            border: 1px solid var(--gray-2);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.2s ease;
+        }
+        
+        .example-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .example-header {
+            padding: var(--space-5);
+            background: var(--gray-1);
+            border-bottom: 1px solid var(--gray-2);
+        }
+        
+        .example-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: var(--space-2);
+            color: var(--gray-8);
+        }
+        
+        .example-description {
+            color: var(--gray-6);
+            font-size: 0.875rem;
+        }
+        
+        .example-content {
+            padding: var(--space-5);
+        }
+        
+        /* Code Block */
+        .code-block {
+            background: var(--gray-9);
+            color: var(--gray-1);
+            border-radius: 8px;
+            padding: var(--space-4);
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 0.8rem;
+            overflow-x: auto;
+            margin: var(--space-4) 0;
+            position: relative;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        
+        .code-block::before {
+            content: attr(data-lang);
+            position: absolute;
+            top: var(--space-2);
+            right: var(--space-4);
+            background: var(--gray-7);
+            color: var(--gray-3);
+            padding: var(--space-1) var(--space-2);
+            border-radius: 4px;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+        }
+        
+        /* Copy Button */
+        .copy-btn {
+            position: absolute;
+            top: var(--space-2);
+            right: var(--space-12);
+            background: var(--gray-7);
+            color: var(--gray-3);
+            border: none;
+            padding: var(--space-1) var(--space-2);
+            border-radius: 4px;
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .copy-btn:hover {
+            background: var(--gray-6);
+            color: var(--gray-1);
+        }
+        
+        /* Button */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            padding: var(--space-3) var(--space-5);
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            gap: var(--space-2);
+        }
+        
+        .btn-primary {
+            background: var(--accent);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: var(--accent-hover);
+            transform: translateY(-1px);
+        }
+        
+        .btn-secondary {
+            background: var(--gray-1);
+            color: var(--gray-7);
+            border: 1px solid var(--gray-3);
+        }
+        
+        .btn-secondary:hover {
+            background: var(--gray-2);
+            border-color: var(--gray-4);
+        }
+        
+        /* Navigation */
+        .page-nav {
+            display: flex;
+            justify-content: space-between;
+            margin-top: var(--space-8);
+            padding-top: var(--space-6);
+            border-top: 1px solid var(--gray-2);
+        }
+        
+        /* Alert */
+        .alert {
+            padding: var(--space-4);
+            border-radius: 8px;
+            margin: var(--space-4) 0;
+            border-left: 4px solid;
+        }
+        
+        .alert-info {
+            background: #dbeafe;
+            border-left-color: var(--accent);
+            color: #1e40af;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-container {
+                padding: 0 var(--space-4);
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .main {
+                padding: calc(80px + var(--space-6)) var(--space-4) var(--space-6);
+            }
+            
+            .page-title {
+                font-size: 2.5rem;
+            }
+            
+            .examples-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .code-block {
+                font-size: 0.75rem;
+            }
+        }
+    </style>
+    
+    <link rel="stylesheet" href="assets/css/main.css">
+    
+    <title>CursorRules Examples - Real-world Templates</title>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">CursorRules Guide</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="getting-started.html">Getting Started</a></li>
+                <li><a href="examples.html">Examples</a></li>
+                <li><a href="best-practices.html">Best Practices</a></li>
+                <li><a href="troubleshooting.html">Troubleshooting</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <!-- Main Content -->
+    <main class="main">
+        <!-- Page Header -->
+        <header class="page-header">
+            <h1 class="page-title">Examples</h1>
+            <p class="page-subtitle">Real-world .cursorrules examples for different technologies, frameworks, and project types. Copy and customize these templates for your own projects.</p>
+        </header>
+        
+        <!-- Web Development Examples -->
+        <section class="section">
+            <h2>Web Development</h2>
+            <p>Examples for modern web development frameworks and technologies.</p>
+            
+            <div class="examples-grid">
+                <!-- React Example -->
+                <div class="example-card">
+                    <div class="example-header">
+                        <h3 class="example-title">React + TypeScript</h3>
+                        <p class="example-description">Modern React development with TypeScript, hooks, and testing</p>
+                    </div>
+                    <div class="example-content">
+                        <div class="code-block" data-lang="text">
+# React + TypeScript Developer
+You are an expert React developer specializing in modern web applications with TypeScript.
+
+## Project Context
+This is a React application built with TypeScript, using modern hooks, functional components, and modern React patterns.
+
+## Coding Standards
+- Use TypeScript for all new files with strict type checking
+- Prefer functional components over class components
+- Use React hooks (useState, useEffect, useCallback, useMemo, etc.)
+- Implement proper error handling with Error Boundaries
+- Write comprehensive tests using Jest and React Testing Library
+- Use React Query/TanStack Query for data fetching
+- Implement proper loading and error states
+
+## File Structure
+- Components go in src/components/
+- Pages go in src/pages/
+- Hooks go in src/hooks/
+- Utils go in src/utils/
+- Types go in src/types/
+- Services go in src/services/
+- Tests go in __tests__/ directory
+- Styles go in src/styles/
+
+## Code Style
+- Use Prettier for code formatting
+- Follow ESLint rules with React and TypeScript plugins
+- Use meaningful variable and function names
+- Add JSDoc comments for complex functions
+- Use const/let instead of var
+- Prefer arrow functions for consistency
+
+## Component Guidelines
+- Always include proper TypeScript interfaces for props
+- Use React.memo for performance optimization when needed
+- Implement proper accessibility with ARIA attributes
+- Use semantic HTML elements
+- Follow mobile-first responsive design principles
+- Use CSS modules or styled-components for styling
+
+## State Management
+- Use React Context for global state when needed
+- Prefer local state with useState for component-specific data
+- Use useReducer for complex state logic
+- Implement proper state normalization for complex data
+
+## Performance
+- Use React.lazy for code splitting
+- Implement proper memoization with useMemo and useCallback
+- Optimize re-renders with React.memo
+- Use proper key props for lists
+- Implement virtual scrolling for large lists
+
+## Testing
+- Write unit tests for all utility functions
+- Write integration tests for components
+- Test user interactions and accessibility
+- Use MSW for API mocking
+- Aim for 80%+ code coverage
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Vue.js Example -->
+                <div class="example-card">
+                    <div class="example-header">
+                        <h3 class="example-title">Vue.js 3 + Composition API</h3>
+                        <p class="example-description">Modern Vue.js development with Composition API and TypeScript</p>
+                    </div>
+                    <div class="example-content">
+                        <div class="code-block" data-lang="text">
+# Vue.js 3 Developer
+You are an expert Vue.js developer specializing in Vue 3 with Composition API and TypeScript.
+
+## Project Context
+This is a Vue 3 application using Composition API, TypeScript, Vite, and modern Vue ecosystem tools.
+
+## Coding Standards
+- Use Vue 3 Composition API for all components
+- Use TypeScript with Vue 3 for type safety
+- Use <script setup> syntax for cleaner code
+- Implement proper error handling with error boundaries
+- Write comprehensive tests using Vitest and Vue Test Utils
+- Use Pinia for state management
+- Implement proper loading and error states
+
+## File Structure
+- Components go in src/components/
+- Views go in src/views/
+- Composables go in src/composables/
+- Stores go in src/stores/
+- Utils go in src/utils/
+- Types go in src/types/
+- Tests go in __tests__/ directory
+- Styles go in src/styles/
+
+## Code Style
+- Use Prettier for code formatting
+- Follow ESLint rules with Vue and TypeScript plugins
+- Use meaningful variable and function names
+- Add JSDoc comments for complex functions
+- Use const/let instead of var
+- Prefer arrow functions for consistency
+
+## Component Guidelines
+- Use <script setup> syntax for all components
+- Always include proper TypeScript interfaces for props
+- Use defineProps and defineEmits with TypeScript
+- Implement proper accessibility with ARIA attributes
+- Use semantic HTML elements
+- Follow mobile-first responsive design principles
+- Use CSS modules or scoped styles
+
+## Composition API Patterns
+- Use reactive() for reactive objects
+- Use ref() for primitive values
+- Use computed() for derived state
+- Use watchEffect() for side effects
+- Use provide/inject for dependency injection
+- Create custom composables for reusable logic
+
+## Performance
+- Use defineAsyncComponent for code splitting
+- Implement proper memoization with computed
+- Use v-memo for expensive list rendering
+- Use proper key props for lists
+- Implement virtual scrolling for large lists
+
+## Testing
+- Write unit tests for all composables
+- Write integration tests for components
+- Test user interactions and accessibility
+- Use MSW for API mocking
+- Aim for 80%+ code coverage
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Next.js Example -->
+                <div class="example-card">
+                    <div class="example-header">
+                        <h3 class="example-title">Next.js 14 + App Router</h3>
+                        <p class="example-description">Full-stack React with Next.js App Router and modern features</p>
+                    </div>
+                    <div class="example-content">
+                        <div class="code-block" data-lang="text">
+# Next.js 14 Developer
+You are an expert Next.js developer specializing in Next.js 14 with App Router, TypeScript, and modern React patterns.
+
+## Project Context
+This is a Next.js 14 application using App Router, TypeScript, Server Components, and modern Next.js features.
+
+## Coding Standards
+- Use Next.js 14 App Router for all routing
+- Use TypeScript with strict type checking
+- Prefer Server Components over Client Components when possible
+- Use React Server Actions for mutations
+- Implement proper error handling with error.tsx files
+- Write comprehensive tests using Jest and React Testing Library
+- Use proper SEO optimization techniques
+
+## File Structure
+- App router pages go in app/
+- Components go in components/
+- Lib utilities go in lib/
+- Types go in types/
+- Tests go in __tests__/ directory
+- Styles go in styles/
+- Public assets go in public/
+
+## App Router Patterns
+- Use page.tsx for route pages
+- Use layout.tsx for shared layouts
+- Use loading.tsx for loading states
+- Use error.tsx for error boundaries
+- Use not-found.tsx for 404 pages
+- Use route.ts for API routes
+
+## Code Style
+- Use Prettier for code formatting
+- Follow ESLint rules with Next.js and TypeScript plugins
+- Use meaningful variable and function names
+- Add JSDoc comments for complex functions
+- Use const/let instead of var
+- Prefer arrow functions for consistency
+
+## Performance Optimization
+- Use dynamic imports for code splitting
+- Implement proper image optimization with next/image
+- Use next/font for font optimization
+- Implement proper caching strategies
+- Use React.memo for Client Components
+- Optimize bundle size with proper imports
+
+## SEO and Metadata
+- Use generateMetadata for dynamic metadata
+- Implement proper Open Graph tags
+- Use structured data markup
+- Optimize Core Web Vitals
+- Implement proper sitemap and robots.txt
+
+## Testing
+- Write unit tests for all utility functions
+- Write integration tests for pages and components
+- Test API routes thoroughly
+- Use MSW for API mocking
+- Aim for 80%+ code coverage
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Backend Development Examples -->
+        <section class="section">
+            <h2>Backend Development</h2>
+            <p>Examples for server-side development and APIs.</p>
+            
+            <div class="examples-grid">
+                <!-- Node.js Example -->
+                <div class="example-card">
+                    <div class="example-header">
+                        <h3 class="example-title">Node.js + Express</h3>
+                        <p class="example-description">RESTful API development with Express.js and TypeScript</p>
+                    </div>
+                    <div class="example-content">
+                        <div class="code-block" data-lang="text">
+# Node.js + Express Developer
+You are an expert Node.js developer specializing in Express.js APIs with TypeScript.
+
+## Project Context
+This is a Node.js REST API built with Express.js, TypeScript, and modern backend practices.
+
+## Coding Standards
+- Use TypeScript for all files with strict type checking
+- Use Express.js for the web framework
+- Implement proper error handling middleware
+- Write comprehensive tests using Jest and Supertest
+- Use proper logging with Winston or similar
+- Implement proper validation with Joi or Zod
+- Use proper authentication and authorization
+
+## File Structure
+- Routes go in src/routes/
+- Controllers go in src/controllers/
+- Middleware goes in src/middleware/
+- Models go in src/models/
+- Services go in src/services/
+- Utils go in src/utils/
+- Types go in src/types/
+- Tests go in __tests__/ directory
+
+## API Design
+- Follow RESTful conventions
+- Use proper HTTP status codes
+- Implement proper error responses
+- Use consistent response formats
+- Implement proper pagination
+- Use proper rate limiting
+- Implement proper CORS handling
+
+## Code Style
+- Use Prettier for code formatting
+- Follow ESLint rules with Node.js and TypeScript plugins
+- Use meaningful variable and function names
+- Add JSDoc comments for complex functions
+- Use const/let instead of var
+- Prefer async/await over callbacks
+
+## Security
+- Implement proper input validation
+- Use helmet.js for security headers
+- Implement proper authentication (JWT)
+- Use bcrypt for password hashing
+- Implement proper CORS policies
+- Use rate limiting to prevent abuse
+- Sanitize user inputs
+
+## Database
+- Use proper database connection pooling
+- Implement proper migrations
+- Use proper indexing strategies
+- Implement proper backup strategies
+- Use transactions for data consistency
+- Implement proper query optimization
+
+## Testing
+- Write unit tests for all utility functions
+- Write integration tests for API endpoints
+- Test error handling scenarios
+- Use proper test data setup and teardown
+- Aim for 80%+ code coverage
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Python FastAPI Example -->
+                <div class="example-card">
+                    <div class="example-header">
+                        <h3 class="example-title">Python + FastAPI</h3>
+                        <p class="example-description">Modern Python API development with FastAPI and Pydantic</p>
+                    </div>
+                    <div class="example-content">
+                        <div class="code-block" data-lang="text">
+# Python + FastAPI Developer
+You are an expert Python developer specializing in FastAPI with modern Python practices.
+
+## Project Context
+This is a Python REST API built with FastAPI, Pydantic, and modern Python ecosystem tools.
+
+## Coding Standards
+- Use Python 3.11+ with type hints
+- Use FastAPI for the web framework
+- Use Pydantic for data validation and serialization
+- Implement proper error handling with HTTPException
+- Write comprehensive tests using pytest
+- Use proper logging with Python logging
+- Implement proper async/await patterns
+
+## File Structure
+- API routes go in app/api/
+- Models go in app/models/
+- Schemas go in app/schemas/
+- Services go in app/services/
+- Utils go in app/utils/
+- Tests go in tests/
+- Configuration goes in app/config/
+
+## API Design
+- Follow RESTful conventions
+- Use proper HTTP status codes
+- Implement proper error responses
+- Use Pydantic models for request/response validation
+- Implement proper pagination
+- Use proper dependency injection
+- Implement proper OpenAPI documentation
+
+## Code Style
+- Use Black for code formatting
+- Follow Flake8 and mypy for linting
+- Use meaningful variable and function names
+- Add docstrings for all functions and classes
+- Use type hints for all function parameters and returns
+- Follow PEP 8 style guidelines
+
+## Data Validation
+- Use Pydantic models for all data validation
+- Implement proper custom validators
+- Use proper error messages
+- Implement proper data serialization
+- Use proper data transformation
+
+## Database
+- Use SQLAlchemy for ORM
+- Implement proper database migrations with Alembic
+- Use proper connection pooling
+- Implement proper indexing strategies
+- Use proper query optimization
+- Implement proper transaction handling
+
+## Testing
+- Write unit tests for all utility functions
+- Write integration tests for API endpoints
+- Test data validation scenarios
+- Use proper test fixtures
+- Aim for 80%+ code coverage
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Mobile Development Examples -->
+        <section class="section">
+            <h2>Mobile Development</h2>
+            <p>Examples for mobile app development frameworks.</p>
+            
+            <div class="examples-grid">
+                <!-- React Native Example -->
+                <div class="example-card">
+                    <div class="example-header">
+                        <h3 class="example-title">React Native + TypeScript</h3>
+                        <p class="example-description">Cross-platform mobile development with React Native</p>
+                    </div>
+                    <div class="example-content">
+                        <div class="code-block" data-lang="text">
+# React Native Developer
+You are an expert React Native developer specializing in cross-platform mobile applications.
+
+## Project Context
+This is a React Native application built with TypeScript, modern React Native patterns, and cross-platform compatibility.
+
+## Coding Standards
+- Use TypeScript for all files with strict type checking
+- Use functional components with hooks
+- Implement proper error handling with Error Boundaries
+- Write comprehensive tests using Jest and React Native Testing Library
+- Use proper navigation with React Navigation
+- Implement proper state management with Redux Toolkit or Zustand
+
+## File Structure
+- Components go in src/components/
+- Screens go in src/screens/
+- Navigation goes in src/navigation/
+- Services go in src/services/
+- Utils go in src/utils/
+- Types go in src/types/
+- Tests go in __tests__/ directory
+- Assets go in assets/
+
+## Platform Considerations
+- Write platform-specific code when necessary
+- Use Platform.select() for platform differences
+- Test on both iOS and Android
+- Use proper responsive design
+- Implement proper accessibility
+
+## Code Style
+- Use Prettier for code formatting
+- Follow ESLint rules with React Native and TypeScript plugins
+- Use meaningful variable and function names
+- Add JSDoc comments for complex functions
+- Use const/let instead of var
+- Prefer arrow functions for consistency
+
+## Performance
+- Use FlatList for large lists
+- Implement proper image optimization
+- Use proper memory management
+- Implement proper lazy loading
+- Use proper bundle splitting
+
+## Testing
+- Write unit tests for all utility functions
+- Write integration tests for screens and components
+- Test navigation flows
+- Test platform-specific features
+- Aim for 80%+ code coverage
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Data Science Examples -->
+        <section class="section">
+            <h2>Data Science & ML</h2>
+            <p>Examples for data science and machine learning projects.</p>
+            
+            <div class="examples-grid">
+                <!-- Python Data Science Example -->
+                <div class="example-card">
+                    <div class="example-header">
+                        <h3 class="example-title">Python Data Science</h3>
+                        <p class="example-description">Data analysis and machine learning with Python</p>
+                    </div>
+                    <div class="example-content">
+                        <div class="code-block" data-lang="text">
+# Python Data Science Developer
+You are an expert Python data scientist specializing in data analysis, machine learning, and statistical modeling.
+
+## Project Context
+This is a Python data science project using pandas, NumPy, scikit-learn, and modern data science practices.
+
+## Coding Standards
+- Use Python 3.11+ with type hints
+- Use pandas for data manipulation
+- Use NumPy for numerical computations
+- Use scikit-learn for machine learning
+- Use matplotlib/seaborn for visualization
+- Implement proper data validation
+- Write comprehensive tests using pytest
+
+## File Structure
+- Data processing goes in src/data/
+- Models go in src/models/
+- Utils go in src/utils/
+- Notebooks go in notebooks/
+- Tests go in tests/
+- Data files go in data/
+- Results go in results/
+
+## Data Handling
+- Use proper data validation with pandas
+- Implement proper data cleaning pipelines
+- Use proper data splitting for train/test
+- Implement proper feature engineering
+- Use proper data versioning
+
+## Machine Learning
+- Use proper cross-validation techniques
+- Implement proper hyperparameter tuning
+- Use proper model evaluation metrics
+- Implement proper model persistence
+- Use proper feature selection techniques
+
+## Code Style
+- Use Black for code formatting
+- Follow Flake8 and mypy for linting
+- Use meaningful variable and function names
+- Add docstrings for all functions and classes
+- Use type hints for all function parameters and returns
+
+## Testing
+- Write unit tests for all utility functions
+- Write integration tests for data pipelines
+- Test model performance
+- Use proper test data
+- Aim for 80%+ code coverage
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Customization Tips -->
+        <section class="section">
+            <h2>Customization Tips</h2>
+            <p>How to customize these examples for your specific needs:</p>
+            
+            <div class="alert alert-info">
+                <strong>Pro Tip:</strong> Start with a template that matches your technology stack, then gradually add more specific rules as you discover what works best for your project.
+            </div>
+            
+            <ul>
+                <li><strong>Technology Stack:</strong> Choose the example that best matches your primary technology</li>
+                <li><strong>Project Type:</strong> Adapt the file structure to match your project's architecture</li>
+                <li><strong>Team Standards:</strong> Add your team's specific coding standards and conventions</li>
+                <li><strong>Testing Requirements:</strong> Customize testing approaches based on your project needs</li>
+                <li><strong>Performance Goals:</strong> Add specific performance requirements and optimization strategies</li>
+                <li><strong>Security Requirements:</strong> Include specific security practices relevant to your domain</li>
+            </ul>
+        </section>
+        
+        <!-- Navigation -->
+        <nav class="page-nav">
+            <a href="getting-started.html" class="btn btn-secondary">← Getting Started</a>
+            <a href="best-practices.html" class="btn btn-primary">Best Practices →</a>
+        </nav>
+    </main>
+    
+    <script src="assets/js/app.js"></script>
+</body>
+</html>

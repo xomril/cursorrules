@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page Not Found - CursorRules Guide</title>
+    <style>
+        :root {
+            --ink: #000;
+            --paper: #fff;
+            --accent: #3b82f6;
+            --space-4: 1rem;
+            --space-6: 2rem;
+            --space-8: 4rem;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, system-ui, sans-serif;
+            line-height: 1.6;
+            color: var(--ink);
+            background: var(--paper);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            text-align: center;
+        }
+        
+        .container {
+            max-width: 600px;
+            padding: var(--space-8);
+        }
+        
+        h1 {
+            font-size: 4rem;
+            font-weight: 800;
+            color: var(--accent);
+            margin-bottom: var(--space-4);
+        }
+        
+        h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: var(--space-6);
+            color: #525252;
+        }
+        
+        p {
+            font-size: 1.125rem;
+            color: #737373;
+            margin-bottom: var(--space-6);
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            padding: var(--space-4) var(--space-6);
+            background: var(--accent);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+        
+        .btn:hover {
+            background: #2563eb;
+            transform: translateY(-1px);
+        }
+        
+        .links {
+            margin-top: var(--space-8);
+            display: flex;
+            gap: var(--space-4);
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .links a {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .links a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>404</h1>
+        <h2>Page Not Found</h2>
+        <p>The page you're looking for doesn't exist or has been moved.</p>
+        
+        <a href="index.html" class="btn">Go Home</a>
+        
+        <div class="links">
+            <a href="getting-started.html">Getting Started</a>
+            <a href="examples.html">Examples</a>
+            <a href="best-practices.html">Best Practices</a>
+            <a href="troubleshooting.html">Troubleshooting</a>
+        </div>
+    </div>
+</body>
+</html>

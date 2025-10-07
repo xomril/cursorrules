@@ -1,0 +1,33 @@
+{
+  "name": "cursorrules-guide",
+  "version": "1.0.0",
+  "description": "A comprehensive guide for implementing and using .cursorrules files in Cursor IDE",
+  "main": "index.html",
+  "scripts": {
+    "start": "python -m http.server 8000",
+    "serve": "python3 -m http.server 8000",
+    "build": "echo 'No build step required for static site'",
+    "deploy": "echo 'Deploy to GitHub Pages by pushing to main branch'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/cursorrules-guide.git"
+  },
+  "keywords": [
+    "cursor",
+    "cursorrules",
+    "ai",
+    "coding-assistant",
+    "development",
+    "guide",
+    "documentation"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/yourusername/cursorrules-guide/issues"
+  },
+  "homepage": "https://yourusername.github.io/cursorrules-guide",
+  "devDependencies": {},
+  "dependencies": {}
+}

@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Complete getting started guide for .cursorrules files in Cursor IDE">
+    <meta name="keywords" content="cursor IDE, .cursorrules, getting started, tutorial, setup">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <style>
+        :root {
+            --ink: #000;
+            --paper: #fff;
+            --gray-1: #f5f5f5;
+            --gray-2: #e5e5e5;
+            --gray-3: #d4d4d4;
+            --gray-4: #a3a3a3;
+            --gray-5: #737373;
+            --gray-6: #525252;
+            --gray-7: #404040;
+            --gray-8: #262626;
+            --gray-9: #171717;
+            --gray-10: #0a0a0a;
+            --accent: #3b82f6;
+            --accent-hover: #2563eb;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --error: #ef4444;
+            --space-1: 0.25rem;
+            --space-2: 0.5rem;
+            --space-3: 0.75rem;
+            --space-4: 1rem;
+            --space-5: 1.5rem;
+            --space-6: 2rem;
+            --space-7: 3rem;
+            --space-8: 4rem;
+            --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+            --ease-spring: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, system-ui, sans-serif;
+            line-height: 1.6;
+            color: var(--ink);
+            background: var(--paper);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--gray-2);
+            z-index: 1000;
+            padding: var(--space-4) 0;
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--space-6);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .nav-logo {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--ink);
+            text-decoration: none;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: var(--space-6);
+            list-style: none;
+        }
+        
+        .nav-links a {
+            color: var(--gray-6);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+        
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+        
+        /* Main Content */
+        .main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: calc(80px + var(--space-8)) var(--space-6) var(--space-8);
+        }
+        
+        .page-header {
+            text-align: center;
+            margin-bottom: var(--space-8);
+        }
+        
+        .page-title {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: var(--space-4);
+            color: var(--gray-8);
+        }
+        
+        .page-subtitle {
+            font-size: 1.25rem;
+            color: var(--gray-6);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .section {
+            margin-bottom: var(--space-8);
+        }
+        
+        .section h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: var(--space-4);
+            color: var(--gray-8);
+            border-bottom: 2px solid var(--accent);
+            padding-bottom: var(--space-2);
+        }
+        
+        .section h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: var(--space-3);
+            color: var(--gray-7);
+        }
+        
+        .section p {
+            font-size: 1.125rem;
+            color: var(--gray-6);
+            margin-bottom: var(--space-4);
+        }
+        
+        /* Code Block */
+        .code-block {
+            background: var(--gray-9);
+            color: var(--gray-1);
+            border-radius: 8px;
+            padding: var(--space-4);
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 0.875rem;
+            overflow-x: auto;
+            margin: var(--space-4) 0;
+            position: relative;
+        }
+        
+        .code-block::before {
+            content: attr(data-lang);
+            position: absolute;
+            top: var(--space-2);
+            right: var(--space-4);
+            background: var(--gray-7);
+            color: var(--gray-3);
+            padding: var(--space-1) var(--space-2);
+            border-radius: 4px;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+        }
+        
+        /* Steps */
+        .steps {
+            counter-reset: step-counter;
+        }
+        
+        .step {
+            counter-increment: step-counter;
+            margin-bottom: var(--space-6);
+            padding-left: var(--space-8);
+            position: relative;
+        }
+        
+        .step::before {
+            content: counter(step-counter);
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 32px;
+            height: 32px;
+            background: var(--accent);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 0.875rem;
+        }
+        
+        .step h4 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: var(--space-2);
+            color: var(--gray-8);
+        }
+        
+        .step p {
+            color: var(--gray-6);
+            margin-bottom: var(--space-3);
+        }
+        
+        /* Alert */
+        .alert {
+            padding: var(--space-4);
+            border-radius: 8px;
+            margin: var(--space-4) 0;
+            border-left: 4px solid;
+        }
+        
+        .alert-info {
+            background: #dbeafe;
+            border-left-color: var(--accent);
+            color: #1e40af;
+        }
+        
+        .alert-success {
+            background: #d1fae5;
+            border-left-color: var(--success);
+            color: #065f46;
+        }
+        
+        .alert-warning {
+            background: #fef3c7;
+            border-left-color: var(--warning);
+            color: #92400e;
+        }
+        
+        /* Button */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            padding: var(--space-3) var(--space-5);
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            gap: var(--space-2);
+        }
+        
+        .btn-primary {
+            background: var(--accent);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: var(--accent-hover);
+            transform: translateY(-1px);
+        }
+        
+        .btn-secondary {
+            background: var(--gray-1);
+            color: var(--gray-7);
+            border: 1px solid var(--gray-3);
+        }
+        
+        .btn-secondary:hover {
+            background: var(--gray-2);
+            border-color: var(--gray-4);
+        }
+        
+        /* Navigation */
+        .page-nav {
+            display: flex;
+            justify-content: space-between;
+            margin-top: var(--space-8);
+            padding-top: var(--space-6);
+            border-top: 1px solid var(--gray-2);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-container {
+                padding: 0 var(--space-4);
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .main {
+                padding: calc(80px + var(--space-6)) var(--space-4) var(--space-6);
+            }
+            
+            .page-title {
+                font-size: 2.5rem;
+            }
+            
+            .step {
+                padding-left: var(--space-6);
+            }
+            
+            .step::before {
+                width: 28px;
+                height: 28px;
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+    
+    <link rel="stylesheet" href="assets/css/main.css">
+    
+    <title>Getting Started with .cursorrules - CursorRules Guide</title>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">CursorRules Guide</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="getting-started.html">Getting Started</a></li>
+                <li><a href="examples.html">Examples</a></li>
+                <li><a href="best-practices.html">Best Practices</a></li>
+                <li><a href="troubleshooting.html">Troubleshooting</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <!-- Main Content -->
+    <main class="main">
+        <!-- Page Header -->
+        <header class="page-header">
+            <h1 class="page-title">Getting Started</h1>
+            <p class="page-subtitle">Learn how to create and implement .cursorrules files in your Cursor IDE projects. Follow this step-by-step guide to get up and running quickly.</p>
+        </header>
+        
+        <!-- Prerequisites -->
+        <section class="section">
+            <h2>Prerequisites</h2>
+            <p>Before you begin, make sure you have the following:</p>
+            <ul>
+                <li><strong>Cursor IDE</strong> - Download and install from <a href="https://cursor.sh" target="_blank">cursor.sh</a></li>
+                <li><strong>Git</strong> - For version control (optional but recommended)</li>
+                <li><strong>Basic understanding</strong> of your project's technology stack</li>
+            </ul>
+            
+            <div class="alert alert-info">
+                <strong>Note:</strong> .cursorrules files work with any project type - web development, mobile apps, backend services, data science, and more!
+            </div>
+        </section>
+        
+        <!-- Step 1: Create the File -->
+        <section class="section">
+            <h2>Step 1: Create Your .cursorrules File</h2>
+            
+            <div class="steps">
+                <div class="step">
+                    <h4>Navigate to Your Project Root</h4>
+                    <p>Open your project in Cursor IDE and navigate to the root directory (where your main configuration files like package.json, requirements.txt, or similar are located).</p>
+                </div>
+                
+                <div class="step">
+                    <h4>Create the .cursorrules File</h4>
+                    <p>Create a new file named exactly <code>.cursorrules</code> (with the dot at the beginning). This is important - the filename must be exactly as shown.</p>
+                    
+                    <div class="code-block" data-lang="bash">
+# Using terminal/command line
+touch .cursorrules
+
+# Or create it directly in Cursor IDE
+# File → New File → Save as .cursorrules
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <h4>Verify File Creation</h4>
+                    <p>Make sure the file is created in the correct location. You should see it in your project root alongside other configuration files.</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Step 2: Basic Structure -->
+        <section class="section">
+            <h2>Step 2: Understand the Basic Structure</h2>
+            <p>.cursorrules files use a simple text format. Here's the basic structure you should follow:</p>
+            
+            <div class="code-block" data-lang="text">
+# Role Definition
+You are an expert [technology/framework] developer...
+
+## Project Context
+This project is a [description of your project]...
+
+## Coding Standards
+- Use [specific coding style]
+- Follow [framework conventions]
+- Implement [testing requirements]
+
+## File Structure
+- Components go in [directory]
+- Utils go in [directory]
+- Tests go in [directory]
+
+## Additional Rules
+[Any specific requirements or preferences]
+            </div>
+            
+            <div class="alert alert-success">
+                <strong>Pro Tip:</strong> Start simple and gradually add more specific rules as you learn what works best for your project.
+            </div>
+        </section>
+        
+        <!-- Step 3: Write Your First Rules -->
+        <section class="section">
+            <h2>Step 3: Write Your First Rules</h2>
+            <p>Let's create a basic .cursorrules file for a React project. Replace the content with your specific needs:</p>
+            
+            <div class="code-block" data-lang="text">
+# React Developer Assistant
+You are an expert React developer specializing in modern web applications.
+
+## Project Context
+This is a React application built with TypeScript, using modern hooks and functional components.
+
+## Coding Standards
+- Use TypeScript for all new files
+- Prefer functional components over class components
+- Use React hooks (useState, useEffect, etc.)
+- Implement proper error handling with try-catch blocks
+- Write comprehensive tests using Jest and React Testing Library
+
+## File Structure
+- Components go in src/components/
+- Hooks go in src/hooks/
+- Utils go in src/utils/
+- Types go in src/types/
+- Tests go in __tests__/ directory
+
+## Code Style
+- Use Prettier for code formatting
+- Follow ESLint rules
+- Use meaningful variable and function names
+- Add JSDoc comments for complex functions
+- Use const/let instead of var
+
+## Additional Rules
+- Always include proper TypeScript types
+- Use React.memo for performance optimization when needed
+- Implement proper loading and error states
+- Follow accessibility best practices
+            </div>
+        </section>
+        
+        <!-- Step 4: Test Your Rules -->
+        <section class="section">
+            <h2>Step 4: Test Your Rules</h2>
+            
+            <div class="steps">
+                <div class="step">
+                    <h4>Save the File</h4>
+                    <p>Save your .cursorrules file and make sure it's in your project root directory.</p>
+                </div>
+                
+                <div class="step">
+                    <h4>Restart Cursor IDE</h4>
+                    <p>Close and reopen Cursor IDE to ensure the new rules are loaded properly.</p>
+                </div>
+                
+                <div class="step">
+                    <h4>Test with AI Assistant</h4>
+                    <p>Try asking the AI assistant to help you with a coding task. You should notice that the responses now follow your specified rules and conventions.</p>
+                    
+                    <div class="alert alert-info">
+                        <strong>Example Test:</strong> Ask the AI to "Create a new React component for a user profile card" and see if it follows your TypeScript and file structure rules.
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Step 5: Version Control -->
+        <section class="section">
+            <h2>Step 5: Add to Version Control</h2>
+            <p>It's important to include your .cursorrules file in version control so your team can share the same AI behavior:</p>
+            
+            <div class="code-block" data-lang="bash">
+# Add to git
+git add .cursorrules
+
+# Commit with descriptive message
+git commit -m "Add .cursorrules configuration for AI assistant"
+
+# Push to remote repository
+git push origin main
+            </div>
+            
+            <div class="alert alert-warning">
+                <strong>Team Collaboration:</strong> Make sure all team members pull the latest .cursorrules file to maintain consistency across the project.
+            </div>
+        </section>
+        
+        <!-- Next Steps -->
+        <section class="section">
+            <h2>Next Steps</h2>
+            <p>Congratulations! You've successfully created your first .cursorrules file. Here's what you can do next:</p>
+            
+            <ul>
+                <li><strong>Refine Your Rules:</strong> As you use the AI assistant, you'll discover what rules work best for your project</li>
+                <li><strong>Add More Specificity:</strong> Include more detailed instructions for complex scenarios</li>
+                <li><strong>Explore Examples:</strong> Check out our <a href="examples.html">examples page</a> for inspiration</li>
+                <li><strong>Learn Best Practices:</strong> Read our <a href="best-practices.html">best practices guide</a> for advanced techniques</li>
+                <li><strong>Share with Team:</strong> Collaborate with your team to create comprehensive rules</li>
+            </ul>
+        </section>
+        
+        <!-- Troubleshooting -->
+        <section class="section">
+            <h2>Common Issues</h2>
+            <p>If you're having trouble, here are some common issues and solutions:</p>
+            
+            <h3>File Not Being Recognized</h3>
+            <ul>
+                <li>Make sure the filename is exactly <code>.cursorrules</code> (with the dot)</li>
+                <li>Ensure the file is in your project root directory</li>
+                <li>Try restarting Cursor IDE</li>
+            </ul>
+            
+            <h3>Rules Not Working as Expected</h3>
+            <ul>
+                <li>Check your syntax - use clear, simple language</li>
+                <li>Make sure rules are specific enough</li>
+                <li>Test with simple requests first</li>
+            </ul>
+            
+            <div class="alert alert-info">
+                <strong>Need Help?</strong> Check our <a href="troubleshooting.html">troubleshooting page</a> for more detailed solutions to common problems.
+            </div>
+        </section>
+        
+        <!-- Navigation -->
+        <nav class="page-nav">
+            <a href="index.html" class="btn btn-secondary">← Back to Home</a>
+            <a href="examples.html" class="btn btn-primary">View Examples →</a>
+        </nav>
+    </main>
+    
+    <script src="assets/js/app.js"></script>
+</body>
+</html>

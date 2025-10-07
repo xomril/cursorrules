@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <meta name="description" content="Mobile Test Page - CursorRules Guide">
+    <title>Mobile Test - CursorRules Guide</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <style>
+        :root {
+            --ink: #000;
+            --paper: #fff;
+            --gray-1: #f5f5f5;
+            --gray-2: #e5e5e5;
+            --gray-3: #d4d4d4;
+            --gray-4: #a3a3a3;
+            --gray-5: #737373;
+            --gray-6: #525252;
+            --gray-7: #404040;
+            --gray-8: #262626;
+            --gray-9: #171717;
+            --gray-10: #0a0a0a;
+            --accent: #3b82f6;
+            --accent-hover: #2563eb;
+            --accent-light: #dbeafe;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --error: #ef4444;
+            --text-primary: var(--ink);
+            --bg-primary: var(--paper);
+            --bg-secondary: var(--gray-1);
+            --border-color: var(--gray-2);
+            --shadow-color: rgba(0, 0, 0, 0.1);
+            --space-1: 0.25rem;
+            --space-2: 0.5rem;
+            --space-3: 0.75rem;
+            --space-4: 1rem;
+            --space-5: 1.5rem;
+            --space-6: 2rem;
+            --space-7: 3rem;
+            --space-8: 4rem;
+            --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+            --ease-spring: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        /* Dark Theme */
+        [data-theme="dark"] {
+            --ink: #ffffff;
+            --paper: #0a0a0a;
+            --gray-0: #171717;
+            --gray-1: #262626;
+            --gray-2: #404040;
+            --gray-3: #525252;
+            --gray-4: #737373;
+            --gray-5: #a3a3a3;
+            --gray-6: #d4d4d4;
+            --gray-7: #e5e5e5;
+            --gray-8: #f5f5f5;
+            --gray-9: #fcfcfc;
+            --gray-10: #ffffff;
+            --accent: #60a5fa;
+            --accent-hover: #3b82f6;
+            --accent-light: #1e3a8a;
+            --bg-primary: var(--paper);
+            --bg-secondary: var(--gray-0);
+            --text-primary: var(--ink);
+            --text-secondary: var(--gray-6);
+            --border-color: var(--gray-2);
+            --shadow-color: rgba(0, 0, 0, 0.3);
+        }
+        
+        /* Festive Theme */
+        [data-theme="festive"] {
+            --ink: #2d1b69;
+            --paper: #fef7ff;
+            --gray-0: #fdf2ff;
+            --gray-1: #fce7ff;
+            --gray-2: #f3e8ff;
+            --gray-3: #e9d5ff;
+            --gray-4: #d8b4fe;
+            --gray-5: #c084fc;
+            --gray-6: #a855f7;
+            --gray-7: #9333ea;
+            --gray-8: #7c3aed;
+            --gray-9: #6d28d9;
+            --gray-10: #581c87;
+            --accent: #ec4899;
+            --accent-hover: #db2777;
+            --accent-light: #fce7f3;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --error: #ef4444;
+            --bg-primary: linear-gradient(135deg, #fef7ff 0%, #fdf2ff 50%, #fce7ff 100%);
+            --bg-secondary: #f3e8ff;
+            --text-primary: #2d1b69;
+            --text-secondary: #7c3aed;
+            --border-color: #e9d5ff;
+            --shadow-color: rgba(236, 72, 153, 0.2);
+            --festive-pink: #ec4899;
+            --festive-purple: #a855f7;
+            --festive-mint: #10b981;
+            --festive-sunshine: #f59e0b;
+            --festive-coral: #ff6b6b;
+            --festive-lavender: #c084fc;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, system-ui, sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background: var(--bg-primary);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: var(--space-8) var(--space-6);
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: var(--space-8);
+        }
+        
+        .title {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: var(--space-4);
+            color: var(--text-primary);
+        }
+        
+        .subtitle {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            margin-bottom: var(--space-6);
+        }
+        
+        .test-section {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: var(--space-6);
+            margin-bottom: var(--space-6);
+            transition: all 0.3s ease;
+        }
+        
+        .test-section:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px var(--shadow-color);
+        }
+        
+        .test-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: var(--space-4);
+            color: var(--text-primary);
+        }
+        
+        .test-content {
+            color: var(--text-secondary);
+            margin-bottom: var(--space-4);
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            padding: var(--space-3) var(--space-5);
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            gap: var(--space-2);
+            background: var(--accent);
+            color: white;
+            min-height: 44px;
+        }
+        
+        .btn:hover {
+            background: var(--accent-hover);
+            transform: translateY(-1px);
+        }
+        
+        .btn:active {
+            transform: scale(0.98);
+        }
+        
+        .btn-secondary {
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+        }
+        
+        .btn-secondary:hover {
+            background: var(--bg-secondary);
+            border-color: var(--accent);
+        }
+        
+        /* Theme Switcher */
+        .theme-switcher {
+            position: fixed;
+            top: var(--space-6);
+            right: var(--space-6);
+            z-index: 1001;
+            display: flex;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: var(--space-1);
+            box-shadow: 0 4px 12px var(--shadow-color);
+            backdrop-filter: blur(10px);
+        }
+        
+        .theme-switcher button {
+            background: transparent;
+            border: none;
+            padding: var(--space-2) var(--space-3);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 1.25rem;
+            position: relative;
+            overflow: hidden;
+            min-width: 44px;
+            min-height: 44px;
+        }
+        
+        .theme-switcher button:hover {
+            background: var(--accent-light);
+            transform: scale(1.1);
+        }
+        
+        .theme-switcher button.active {
+            background: var(--accent);
+            color: white;
+            box-shadow: 0 1px 3px var(--shadow-color);
+        }
+        
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: var(--space-6) var(--space-4);
+            }
+            
+            .title {
+                font-size: 2.5rem;
+            }
+            
+            .test-section {
+                padding: var(--space-4);
+            }
+            
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .theme-switcher {
+                top: var(--space-4);
+                right: var(--space-4);
+                flex-direction: column;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding: var(--space-4) var(--space-3);
+            }
+            
+            .title {
+                font-size: 2rem;
+            }
+            
+            .test-section {
+                padding: var(--space-3);
+            }
+            
+            .theme-switcher {
+                position: fixed;
+                bottom: var(--space-4);
+                right: var(--space-4);
+                top: auto;
+                flex-direction: row;
+            }
+        }
+        
+        /* Touch Device Optimizations */
+        @media (hover: none) and (pointer: coarse) {
+            .test-section:hover {
+                transform: none;
+                box-shadow: var(--shadow-subtle);
+            }
+            
+            .btn:hover {
+                transform: none;
+            }
+            
+            .btn:active {
+                transform: scale(0.98);
+                transition: transform 0.1s ease;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1 class="title">📱 Mobile Test Page</h1>
+            <p class="subtitle">Test the mobile responsiveness and touch interactions of the CursorRules Guide!</p>
+        </header>
+        
+        <div class="test-section">
+            <h2 class="test-title">Touch Interactions</h2>
+            <p class="test-content">Tap these buttons to test touch responsiveness. They should have proper touch targets (44px minimum) and provide visual feedback.</p>
+            <button class="btn" onclick="showAlert('Button 1 tapped!')">Test Button 1</button>
+            <button class="btn btn-secondary" onclick="showAlert('Button 2 tapped!')">Test Button 2</button>
+        </div>
+        
+        <div class="test-section">
+            <h2 class="test-title">Responsive Layout</h2>
+            <p class="test-content">This page adapts to different screen sizes. Try rotating your device or resizing the browser window to see the responsive design in action.</p>
+            <p class="test-content"><strong>Current screen size:</strong> <span id="screenSize">Loading...</span></p>
+        </div>
+        
+        <div class="test-section">
+            <h2 class="test-title">Theme Switching</h2>
+            <p class="test-content">Use the theme switcher in the top-right corner to test different themes on mobile. The switcher moves to the bottom on small screens.</p>
+            <p class="test-content">Available themes: ☀️ Light, 🌙 Dark, 🌸 Festive</p>
+        </div>
+        
+        <div class="test-section">
+            <h2 class="test-title">Mobile Features</h2>
+            <p class="test-content">
+                ✅ Touch-friendly buttons (44px minimum)<br>
+                ✅ Responsive typography<br>
+                ✅ Mobile-optimized spacing<br>
+                ✅ Touch feedback animations<br>
+                ✅ Proper viewport settings<br>
+                ✅ Theme switcher positioning<br>
+                ✅ Smooth scrolling<br>
+                ✅ No horizontal overflow
+            </p>
+            <a href="index.html" class="btn btn-secondary">Back to Guide</a>
+        </div>
+    </div>
+    
+    <script>
+        // Show screen size
+        function updateScreenSize() {
+            const width = window.innerWidth;
+            const height = window.innerHeight;
+            const orientation = width > height ? 'Landscape' : 'Portrait';
+            document.getElementById('screenSize').textContent = `${width} × ${height} (${orientation})`;
+        }
+        
+        // Show alert
+        function showAlert(message) {
+            alert(message);
+        }
+        
+        // Theme switching functionality
+        function switchTheme(themeName) {
+            document.documentElement.setAttribute('data-theme', themeName);
+            localStorage.setItem('theme', themeName);
+            
+            document.querySelectorAll('.theme-switcher button').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.getAttribute('data-theme') === themeName) {
+                    btn.classList.add('active');
+                }
+            });
+        }
+        
+        // Initialize theme switcher
+        function initThemeSwitcher() {
+            const switcher = document.createElement('div');
+            switcher.className = 'theme-switcher';
+            
+            const themes = [
+                { name: 'light', icon: '☀️', label: 'Light Mode' },
+                { name: 'dark', icon: '🌙', label: 'Dark Mode' },
+                { name: 'festive', icon: '🌸', label: 'Festive Mode' }
+            ];
+            
+            themes.forEach(theme => {
+                const button = document.createElement('button');
+                button.innerHTML = theme.icon;
+                button.setAttribute('aria-label', theme.label);
+                button.setAttribute('data-theme', theme.name);
+                
+                if (theme.name === localStorage.getItem('theme') || 
+                    (!localStorage.getItem('theme') && theme.name === 'light')) {
+                    button.classList.add('active');
+                }
+                
+                button.addEventListener('click', () => {
+                    switchTheme(theme.name);
+                });
+                
+                switcher.appendChild(button);
+            });
+            
+            document.body.appendChild(switcher);
+        }
+        
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            const currentTheme = localStorage.getItem('theme') || 'light';
+            document.documentElement.setAttribute('data-theme', currentTheme);
+            
+            initThemeSwitcher();
+            updateScreenSize();
+            
+            window.addEventListener('resize', updateScreenSize);
+            window.addEventListener('orientationchange', () => {
+                setTimeout(updateScreenSize, 100);
+            });
+        });
+    </script>
+</body>
+</html>

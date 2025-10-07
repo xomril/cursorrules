@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <meta name="description" content="Complete guide to implementing and using .cursorrules files in Cursor IDE">
+    <meta name="keywords" content="cursor IDE, .cursorrules, AI coding assistant, development tools">
+    
+    <!-- Preconnect to external origins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- Critical CSS inline -->
+    <style>
+        :root {
+            --ink: #000;
+            --paper: #fff;
+            --gray-1: #f5f5f5;
+            --gray-2: #e5e5e5;
+            --gray-3: #d4d4d4;
+            --gray-4: #a3a3a3;
+            --gray-5: #737373;
+            --gray-6: #525252;
+            --gray-7: #404040;
+            --gray-8: #262626;
+            --gray-9: #171717;
+            --gray-10: #0a0a0a;
+            --accent: #3b82f6;
+            --accent-hover: #2563eb;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --error: #ef4444;
+            --text-primary: var(--ink);
+            --bg-primary: var(--paper);
+            --bg-secondary: var(--gray-1);
+            --border-color: var(--gray-2);
+            --shadow-color: rgba(0, 0, 0, 0.1);
+            --space-1: 0.25rem;
+            --space-2: 0.5rem;
+            --space-3: 0.75rem;
+            --space-4: 1rem;
+            --space-5: 1.5rem;
+            --space-6: 2rem;
+            --space-7: 3rem;
+            --space-8: 4rem;
+            --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+            --ease-spring: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, system-ui, sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background: var(--bg-primary);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
+        }
+        
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--gray-2);
+            z-index: 1000;
+            padding: var(--space-4) 0;
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--space-6);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .nav-logo {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--ink);
+            text-decoration: none;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: var(--space-6);
+            list-style: none;
+        }
+        
+        .nav-links a {
+            color: var(--gray-6);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+        
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+        
+        /* Hero Section */
+        .hero {
+            padding: calc(80px + var(--space-8)) var(--space-6) var(--space-8);
+            text-align: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            margin-top: 80px;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: var(--space-4);
+            line-height: 1.1;
+        }
+        
+        .hero p {
+            font-size: 1.25rem;
+            margin-bottom: var(--space-6);
+            opacity: 0.9;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .hero-cta {
+            display: inline-flex;
+            gap: var(--space-4);
+            margin-top: var(--space-6);
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            padding: var(--space-3) var(--space-5);
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        
+        .btn-primary {
+            background: var(--accent);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: var(--accent-hover);
+            transform: translateY(-1px);
+        }
+        
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
+        /* Main Content */
+        .main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: var(--space-8) var(--space-6);
+        }
+        
+        .section {
+            margin-bottom: var(--space-8);
+        }
+        
+        .section h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: var(--space-4);
+            color: var(--gray-8);
+        }
+        
+        .section p {
+            font-size: 1.125rem;
+            color: var(--gray-6);
+            margin-bottom: var(--space-4);
+        }
+        
+        /* Feature Grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--space-6);
+            margin-top: var(--space-6);
+        }
+        
+        .feature-card {
+            background: var(--paper);
+            border: 1px solid var(--gray-2);
+            border-radius: 12px;
+            padding: var(--space-6);
+            transition: all 0.2s ease;
+        }
+        
+        .feature-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--accent);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: var(--space-4);
+            color: white;
+            font-size: 1.5rem;
+        }
+        
+        .feature-card h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: var(--space-3);
+            color: var(--gray-8);
+        }
+        
+        .feature-card p {
+            color: var(--gray-6);
+            font-size: 1rem;
+        }
+        
+        /* Code Block */
+        .code-block {
+            background: var(--gray-9);
+            color: var(--gray-1);
+            border-radius: 8px;
+            padding: var(--space-4);
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 0.875rem;
+            overflow-x: auto;
+            margin: var(--space-4) 0;
+        }
+        
+        /* Footer */
+        .footer {
+            background: var(--gray-9);
+            color: var(--gray-3);
+            padding: var(--space-8) var(--space-6);
+            text-align: center;
+        }
+        
+        .footer p {
+            margin-bottom: var(--space-2);
+        }
+        
+        .footer a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+        
+        /* Theme Switcher */
+        .theme-switcher {
+            position: fixed;
+            top: var(--space-6);
+            right: var(--space-6);
+            z-index: 1001;
+            display: flex;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: var(--space-1);
+            box-shadow: 0 4px 12px var(--shadow-color);
+            backdrop-filter: blur(10px);
+        }
+        
+        .theme-switcher button {
+            background: transparent;
+            border: none;
+            padding: var(--space-2) var(--space-3);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 1.25rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .theme-switcher button:hover {
+            background: var(--accent-light);
+            transform: scale(1.1);
+        }
+        
+        .theme-switcher button.active {
+            background: var(--accent);
+            color: white;
+            box-shadow: 0 1px 3px var(--shadow-color);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-container {
+                padding: 0 var(--space-4);
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero-cta {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .main {
+                padding: var(--space-6) var(--space-4);
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .theme-switcher {
+                top: var(--space-4);
+                right: var(--space-4);
+                flex-direction: column;
+            }
+        }
+    </style>
+    
+    <!-- Load main CSS -->
+    <link rel="stylesheet" href="assets/css/main.css">
+    
+    <title>CursorRules Guide - Master .cursorrules in Cursor IDE</title>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">CursorRules Guide</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="getting-started.html">Getting Started</a></li>
+                <li><a href="examples.html">Examples</a></li>
+                <li><a href="best-practices.html">Best Practices</a></li>
+                <li><a href="troubleshooting.html">Troubleshooting</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Master .cursorrules in Cursor IDE</h1>
+        <p>Learn how to create powerful, customized AI coding assistants with detailed .cursorrules files. Boost your development productivity with intelligent, context-aware code generation.</p>
+        <div class="hero-cta">
+            <a href="getting-started.html" class="btn btn-primary">Get Started</a>
+            <a href="examples.html" class="btn btn-secondary">View Examples</a>
+        </div>
+    </section>
+    
+    <!-- Main Content -->
+    <main class="main">
+        <!-- What is CursorRules -->
+        <section class="section">
+            <h2>What are .cursorrules?</h2>
+            <p>.cursorrules files are configuration files that define how Cursor IDE's AI assistant should behave in your project. They allow you to customize the AI's coding style, preferences, and behavior to match your team's standards and project requirements.</p>
+            
+            <div class="code-block">
+# Example .cursorrules file
+You are an expert React developer specializing in modern web applications.
+
+## Coding Standards
+- Use TypeScript for all new files
+- Follow React best practices and hooks patterns
+- Implement proper error handling
+- Write comprehensive tests for all components
+
+## Project Structure
+- Components go in src/components/
+- Utils go in src/utils/
+- Types go in src/types/
+- Tests go in __tests__/ directory
+
+## Code Style
+- Use Prettier for formatting
+- Follow ESLint rules
+- Use meaningful variable names
+- Add JSDoc comments for complex functions
+            </div>
+        </section>
+        
+        <!-- Key Features -->
+        <section class="section">
+            <h2>Key Features</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3>Customized Behavior</h3>
+                    <p>Define specific coding patterns, architectural decisions, and development workflows that the AI should follow in your project.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Enhanced Productivity</h3>
+                    <p>Get more accurate code suggestions, faster development cycles, and consistent code quality across your entire team.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🔧</div>
+                    <h3>Project-Specific</h3>
+                    <p>Each project can have its own .cursorrules file, allowing for different coding standards and preferences per project.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">📚</div>
+                    <h3>Comprehensive Documentation</h3>
+                    <p>Include detailed instructions, examples, and context that helps the AI understand your project's unique requirements.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🔄</div>
+                    <h3>Version Control</h3>
+                    <p>Share .cursorrules files with your team through Git, ensuring everyone uses the same AI behavior and coding standards.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🚀</div>
+                    <h3>Easy Setup</h3>
+                    <p>Simply create a .cursorrules file in your project root and start benefiting from customized AI assistance immediately.</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Quick Start -->
+        <section class="section">
+            <h2>Quick Start</h2>
+            <p>Ready to get started? Follow these simple steps to create your first .cursorrules file:</p>
+            
+            <div class="code-block">
+# Step 1: Create .cursorrules file
+touch .cursorrules
+
+# Step 2: Add your rules
+echo "You are an expert developer..." >> .cursorrules
+
+# Step 3: Commit to version control
+git add .cursorrules
+git commit -m "Add .cursorrules configuration"
+            </div>
+            
+            <p>For detailed instructions and advanced configurations, check out our comprehensive guides below.</p>
+            
+            <div class="hero-cta">
+                <a href="getting-started.html" class="btn btn-primary">Detailed Guide</a>
+                <a href="examples.html" class="btn btn-secondary">Browse Examples</a>
+            </div>
+        </section>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <p>CursorRules Guide - Master .cursorrules in Cursor IDE</p>
+        <p>Built with ❤️ for the developer community</p>
+        <p><a href="https://github.com/your-username/cursorrules-guide">View on GitHub</a></p>
+    </footer>
+    
+    <!-- Load main JavaScript -->
+    <script src="assets/js/app.js"></script>
+</body>
+</html>

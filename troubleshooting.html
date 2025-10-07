@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Troubleshooting guide for common .cursorrules issues and solutions">
+    <meta name="keywords" content="cursor IDE, .cursorrules, troubleshooting, FAQ, problems, solutions">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <style>
+        :root {
+            --ink: #000;
+            --paper: #fff;
+            --gray-1: #f5f5f5;
+            --gray-2: #e5e5e5;
+            --gray-3: #d4d4d4;
+            --gray-4: #a3a3a4;
+            --gray-5: #737373;
+            --gray-6: #525252;
+            --gray-7: #404040;
+            --gray-8: #262626;
+            --gray-9: #171717;
+            --gray-10: #0a0a0a;
+            --accent: #3b82f6;
+            --accent-hover: #2563eb;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --error: #ef4444;
+            --space-1: 0.25rem;
+            --space-2: 0.5rem;
+            --space-3: 0.75rem;
+            --space-4: 1rem;
+            --space-5: 1.5rem;
+            --space-6: 2rem;
+            --space-7: 3rem;
+            --space-8: 4rem;
+            --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+            --ease-spring: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, system-ui, sans-serif;
+            line-height: 1.6;
+            color: var(--ink);
+            background: var(--paper);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--gray-2);
+            z-index: 1000;
+            padding: var(--space-4) 0;
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--space-6);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .nav-logo {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--ink);
+            text-decoration: none;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: var(--space-6);
+            list-style: none;
+        }
+        
+        .nav-links a {
+            color: var(--gray-6);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+        
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+        
+        /* Main Content */
+        .main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: calc(80px + var(--space-8)) var(--space-6) var(--space-8);
+        }
+        
+        .page-header {
+            text-align: center;
+            margin-bottom: var(--space-8);
+        }
+        
+        .page-title {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: var(--space-4);
+            color: var(--gray-8);
+        }
+        
+        .page-subtitle {
+            font-size: 1.25rem;
+            color: var(--gray-6);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .section {
+            margin-bottom: var(--space-8);
+        }
+        
+        .section h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: var(--space-4);
+            color: var(--gray-8);
+            border-bottom: 2px solid var(--accent);
+            padding-bottom: var(--space-2);
+        }
+        
+        .section h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: var(--space-3);
+            color: var(--gray-7);
+        }
+        
+        .section p {
+            font-size: 1.125rem;
+            color: var(--gray-6);
+            margin-bottom: var(--space-4);
+        }
+        
+        /* FAQ Items */
+        .faq-item {
+            background: var(--paper);
+            border: 1px solid var(--gray-2);
+            border-radius: 8px;
+            margin-bottom: var(--space-4);
+            overflow: hidden;
+        }
+        
+        .faq-question {
+            padding: var(--space-5);
+            background: var(--gray-1);
+            border-bottom: 1px solid var(--gray-2);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.2s ease;
+        }
+        
+        .faq-question:hover {
+            background: var(--gray-2);
+        }
+        
+        .faq-question h3 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--gray-8);
+            margin: 0;
+        }
+        
+        .faq-icon {
+            font-size: 1.25rem;
+            color: var(--accent);
+            transition: transform 0.2s ease;
+        }
+        
+        .faq-item.active .faq-icon {
+            transform: rotate(180deg);
+        }
+        
+        .faq-answer {
+            padding: var(--space-5);
+            display: none;
+            color: var(--gray-6);
+        }
+        
+        .faq-item.active .faq-answer {
+            display: block;
+        }
+        
+        /* Code Block */
+        .code-block {
+            background: var(--gray-9);
+            color: var(--gray-1);
+            border-radius: 8px;
+            padding: var(--space-4);
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 0.875rem;
+            overflow-x: auto;
+            margin: var(--space-4) 0;
+            position: relative;
+        }
+        
+        .code-block::before {
+            content: attr(data-lang);
+            position: absolute;
+            top: var(--space-2);
+            right: var(--space-4);
+            background: var(--gray-7);
+            color: var(--gray-3);
+            padding: var(--space-1) var(--space-2);
+            border-radius: 4px;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+        }
+        
+        /* Alert */
+        .alert {
+            padding: var(--space-4);
+            border-radius: 8px;
+            margin: var(--space-4) 0;
+            border-left: 4px solid;
+        }
+        
+        .alert-info {
+            background: #dbeafe;
+            border-left-color: var(--accent);
+            color: #1e40af;
+        }
+        
+        .alert-success {
+            background: #d1fae5;
+            border-left-color: var(--success);
+            color: #065f46;
+        }
+        
+        .alert-warning {
+            background: #fef3c7;
+            border-left-color: var(--warning);
+            color: #92400e;
+        }
+        
+        .alert-error {
+            background: #fee2e2;
+            border-left-color: var(--error);
+            color: #991b1b;
+        }
+        
+        /* Button */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            padding: var(--space-3) var(--space-5);
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            gap: var(--space-2);
+        }
+        
+        .btn-primary {
+            background: var(--accent);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: var(--accent-hover);
+            transform: translateY(-1px);
+        }
+        
+        .btn-secondary {
+            background: var(--gray-1);
+            color: var(--gray-7);
+            border: 1px solid var(--gray-3);
+        }
+        
+        .btn-secondary:hover {
+            background: var(--gray-2);
+            border-color: var(--gray-4);
+        }
+        
+        /* Navigation */
+        .page-nav {
+            display: flex;
+            justify-content: space-between;
+            margin-top: var(--space-8);
+            padding-top: var(--space-6);
+            border-top: 1px solid var(--gray-2);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-container {
+                padding: 0 var(--space-4);
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .main {
+                padding: calc(80px + var(--space-6)) var(--space-4) var(--space-6);
+            }
+            
+            .page-title {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+    
+    <link rel="stylesheet" href="assets/css/main.css">
+    
+    <title>Troubleshooting - CursorRules Guide</title>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">CursorRules Guide</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="getting-started.html">Getting Started</a></li>
+                <li><a href="examples.html">Examples</a></li>
+                <li><a href="best-practices.html">Best Practices</a></li>
+                <li><a href="troubleshooting.html">Troubleshooting</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <!-- Main Content -->
+    <main class="main">
+        <!-- Page Header -->
+        <header class="page-header">
+            <h1 class="page-title">Troubleshooting</h1>
+            <p class="page-subtitle">Common issues and solutions for .cursorrules files. Find answers to frequently asked questions and resolve problems quickly.</p>
+        </header>
+        
+        <!-- Common Issues -->
+        <section class="section">
+            <h2>Common Issues</h2>
+            <p>Here are the most frequently encountered problems and their solutions.</p>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h3>My .cursorrules file is not being recognized</h3>
+                    <span class="faq-icon">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <p>This is the most common issue. Here are the steps to resolve it:</p>
+                    <ol>
+                        <li><strong>Check the filename:</strong> Make sure it's exactly <code>.cursorrules</code> (with the dot at the beginning)</li>
+                        <li><strong>Verify location:</strong> The file must be in your project root directory</li>
+                        <li><strong>Restart Cursor IDE:</strong> Close and reopen Cursor IDE completely</li>
+                        <li><strong>Check file permissions:</strong> Ensure the file is readable</li>
+                        <li><strong>Verify file content:</strong> Make sure the file contains valid text (not empty or corrupted)</li>
+                    </ol>
+                    
+                    <div class="alert alert-info">
+                        <strong>Quick Test:</strong> Try creating a simple .cursorrules file with just "You are a helpful coding assistant" and restart Cursor IDE.
+                    </div>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h3>The AI is not following my rules</h3>
+                    <span class="faq-icon">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <p>If the AI isn't following your rules, try these solutions:</p>
+                    <ol>
+                        <li><strong>Make rules more specific:</strong> Vague rules like "write good code" are hard to follow</li>
+                        <li><strong>Use clear language:</strong> Write rules in simple, direct language</li>
+                        <li><strong>Provide examples:</strong> Include code examples in your rules</li>
+                        <li><strong>Check for conflicts:</strong> Ensure rules don't contradict each other</li>
+                        <li><strong>Test with simple requests:</strong> Start with basic tasks to verify rules are working</li>
+                    </ol>
+                    
+                    <div class="code-block" data-lang="text">
+# Good Rule Example
+Use TypeScript with strict type checking for all new files.
+
+# Bad Rule Example
+Write good code that follows best practices.
+                    </div>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h3>Rules are too restrictive and limiting creativity</h3>
+                    <span class="faq-icon">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <p>If your rules are too restrictive, try these approaches:</p>
+                    <ol>
+                        <li><strong>Focus on principles:</strong> Instead of specific implementations, focus on high-level principles</li>
+                        <li><strong>Use "prefer" language:</strong> Use "prefer" instead of "always" for flexibility</li>
+                        <li><strong>Add exceptions:</strong> Include "unless there's a good reason" clauses</li>
+                        <li><strong>Simplify rules:</strong> Remove overly specific rules that limit options</li>
+                        <li><strong>Test and iterate:</strong> Adjust rules based on how they work in practice</li>
+                    </ol>
+                    
+                    <div class="code-block" data-lang="text">
+# Flexible Rule Example
+Prefer functional components over class components, unless you need lifecycle methods not available in hooks.
+
+# Restrictive Rule Example
+Always use functional components. Never use class components.
+                    </div>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h3>Rules are conflicting with each other</h3>
+                    <span class="faq-icon">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Conflicting rules can confuse the AI. Here's how to resolve conflicts:</p>
+                    <ol>
+                        <li><strong>Identify conflicts:</strong> Look for rules that contradict each other</li>
+                        <li><strong>Establish priorities:</strong> Decide which rule takes precedence</li>
+                        <li><strong>Use conditional language:</strong> Add context for when each rule applies</li>
+                        <li><strong>Consolidate rules:</strong> Combine similar rules into single, clear statements</li>
+                        <li><strong>Review regularly:</strong> Check for new conflicts as you add rules</li>
+                    </ol>
+                    
+                    <div class="alert alert-warning">
+                        <strong>Example Conflict:</strong><br>
+                        Rule 1: "Always use arrow functions"<br>
+                        Rule 2: "Use function declarations for main functions"<br>
+                        <strong>Solution:</strong> "Use arrow functions for callbacks and short functions, function declarations for main functions"
+                    </div>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h3>The AI is generating code that doesn't match my project structure</h3>
+                    <span class="faq-icon">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <p>To ensure the AI follows your project structure:</p>
+                    <ol>
+                        <li><strong>Define file structure clearly:</strong> Explicitly state where different types of files go</li>
+                        <li><strong>Provide examples:</strong> Include examples of your actual file structure</li>
+                        <li><strong>Use absolute paths:</strong> Specify exact directory paths</li>
+                        <li><strong>Include import patterns:</strong> Show how imports should be structured</li>
+                        <li><strong>Update as needed:</strong> Keep structure rules current with your project</li>
+                    </ol>
+                    
+                    <div class="code-block" data-lang="text">
+# Clear Structure Example
+## File Structure
+- Components go in src/components/
+- Pages go in src/pages/
+- Utils go in src/utils/
+- Types go in src/types/
+- Tests go in __tests__/
+
+## Import Patterns
+- Use relative imports for local files: import { Button } from './Button'
+- Use absolute imports for shared utilities: import { formatDate } from 'src/utils/date'
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Performance Issues -->
+        <section class="section">
+            <h2>Performance Issues</h2>
+            <p>Problems related to slow responses or performance issues.</p>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h3>AI responses are slow or timing out</h3>
+                    <span class="faq-icon">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <p>If responses are slow, try these optimizations:</p>
+                    <ol>
+                        <li><strong>Reduce rule complexity:</strong> Simplify overly complex rules</li>
+                        <li><strong>Remove redundant rules:</strong> Eliminate duplicate or similar rules</li>
+                        <li><strong>Use concise language:</strong> Write shorter, more direct rules</li>
+                        <li><strong>Prioritize rules:</strong> Put most important rules first</li>
+                        <li><strong>Check file size:</strong> Large .cursorrules files can slow responses</li>
+                    </ol>
+                    
+                    <div class="alert alert-info">
+                        <strong>Rule of Thumb:</strong> Keep your .cursorrules file under 2000 words for optimal performance.
+                    </div>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h3>The AI is not understanding my context</h3>
+                    <span class="faq-icon">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <p>To improve context understanding:</p>
+                    <ol>
+                        <li><strong>Provide project context:</strong> Describe your project's purpose and technology stack</li>
+                        <li><strong>Include business requirements:</strong> Explain the business context</li>
+                        <li><strong>Specify constraints:</strong> Mention any technical or business constraints</li>
+                        <li><strong>Add examples:</strong> Include real examples from your project</li>
+                        <li><strong>Update regularly:</strong> Keep context information current</li>
+                    </ol>
+                    
+                    <div class="code-block" data-lang="text">
+# Good Context Example
+## Project Context
+This is a React e-commerce application built with TypeScript, Next.js, and Stripe for payments. 
+The app serves customers in the US and Canada, with specific requirements for tax calculation 
+and shipping. We prioritize performance and accessibility.
+
+## Business Requirements
+- Must support multiple currencies (USD, CAD)
+- Tax calculation varies by state/province
+- Free shipping over $50
+- Mobile-first design approach
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Team Collaboration Issues -->
+        <section class="section">
+            <h2>Team Collaboration Issues</h2>
+            <p>Problems related to team collaboration and shared .cursorrules files.</p>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h3>Team members have different .cursorrules files</h3>
+                    <span class="faq-icon">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <p>To ensure team consistency:</p>
+                    <ol>
+                        <li><strong>Use version control:</strong> Commit .cursorrules to your repository</li>
+                        <li><strong>Establish process:</strong> Create a process for updating rules</li>
+                        <li><strong>Regular sync:</strong> Ensure everyone pulls the latest version</li>
+                        <li><strong>Document changes:</strong> Document rule changes in commit messages</li>
+                        <li><strong>Team review:</strong> Have team members review rule changes</li>
+                    </ol>
+                    
+                    <div class="code-block" data-lang="bash">
+# Git workflow for .cursorrules
+git add .cursorrules
+git commit -m "feat(.cursorrules): add TypeScript strict mode requirements"
+git push origin main
+
+# Team members should pull regularly
+git pull origin main
+                    </div>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h3>Rules don't work for all team members</h3>
+                    <span class="faq-icon">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <p>If rules work for some but not others:</p>
+                    <ol>
+                        <li><strong>Check Cursor IDE versions:</strong> Ensure everyone uses the same version</li>
+                        <li><strong>Verify file location:</strong> Confirm everyone has the file in the right place</li>
+                        <li><strong>Test individually:</strong> Have each team member test the rules</li>
+                        <li><strong>Check file encoding:</strong> Ensure consistent file encoding (UTF-8)</li>
+                        <li><strong>Restart Cursor IDE:</strong> Have everyone restart their IDE</li>
+                    </ol>
+                    
+                    <div class="alert alert-warning">
+                        <strong>Common Issue:</strong> Different operating systems may handle hidden files differently. Make sure everyone can see the .cursorrules file.
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Advanced Troubleshooting -->
+        <section class="section">
+            <h2>Advanced Troubleshooting</h2>
+            <p>For more complex issues and advanced solutions.</p>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h3>How do I debug my .cursorrules file?</h3>
+                    <span class="faq-icon">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Use these debugging techniques:</p>
+                    <ol>
+                        <li><strong>Start simple:</strong> Begin with basic rules and add complexity gradually</li>
+                        <li><strong>Test incrementally:</strong> Test each rule individually</li>
+                        <li><strong>Use specific prompts:</strong> Test with specific, clear prompts</li>
+                        <li><strong>Check AI responses:</strong> Analyze if responses match your expectations</li>
+                        <li><strong>Log changes:</strong> Keep track of what changes you make</li>
+                    </ol>
+                    
+                    <div class="code-block" data-lang="text">
+# Debugging Process
+1. Create a minimal .cursorrules file
+2. Test with simple requests
+3. Add one rule at a time
+4. Test after each addition
+5. Document what works and what doesn't
+                    </div>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h3>Can I have multiple .cursorrules files?</h3>
+                    <span class="faq-icon">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Currently, Cursor IDE supports one .cursorrules file per project:</p>
+                    <ol>
+                        <li><strong>Single file:</strong> Only one .cursorrules file is recognized per project</li>
+                        <li><strong>Subdirectory approach:</strong> You can use conditional rules for different contexts</li>
+                        <li><strong>Modular rules:</strong> Organize rules into clear sections within one file</li>
+                        <li><strong>Context switching:</strong> Use comments to indicate when rules apply</li>
+                    </ol>
+                    
+                    <div class="code-block" data-lang="text">
+# Modular Approach Example
+## Frontend Rules
+- Use React functional components
+- Implement proper TypeScript types
+
+## Backend Rules  
+- Use Express.js with proper middleware
+- Implement proper error handling
+
+## Testing Rules
+- Write unit tests for all functions
+- Use Jest for testing framework
+                    </div>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h3>How do I migrate from one rule set to another?</h3>
+                    <span class="faq-icon">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <p>To migrate between rule sets safely:</p>
+                    <ol>
+                        <li><strong>Backup current rules:</strong> Save your current .cursorrules file</li>
+                        <li><strong>Gradual migration:</strong> Migrate rules section by section</li>
+                        <li><strong>Test thoroughly:</strong> Test each section after migration</li>
+                        <li><strong>Team communication:</strong> Inform team members of changes</li>
+                        <li><strong>Rollback plan:</strong> Have a plan to rollback if issues arise</li>
+                    </ol>
+                    
+                    <div class="alert alert-success">
+                        <strong>Migration Strategy:</strong>
+                        <ol>
+                            <li>Create new .cursorrules file alongside existing one</li>
+                            <li>Test new rules in a separate branch</li>
+                            <li>Gradually replace old rules with new ones</li>
+                            <li>Monitor team feedback and adjust as needed</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Getting Help -->
+        <section class="section">
+            <h2>Getting Help</h2>
+            <p>If you're still having issues, here are resources to get help.</p>
+            
+            <div class="alert alert-info">
+                <strong>Community Resources:</strong>
+                <ul>
+                    <li><strong>Cursor IDE Documentation:</strong> Check the official Cursor IDE documentation</li>
+                    <li><strong>GitHub Issues:</strong> Search for similar issues in the Cursor IDE repository</li>
+                    <li><strong>Community Forums:</strong> Join Cursor IDE community discussions</li>
+                    <li><strong>Stack Overflow:</strong> Search for .cursorrules related questions</li>
+                </ul>
+            </div>
+            
+            <h3>Before Asking for Help</h3>
+            <p>When seeking help, include this information:</p>
+            <ul>
+                <li>Your Cursor IDE version</li>
+                <li>Your operating system</li>
+                <li>The content of your .cursorrules file (if appropriate)</li>
+                <li>Specific error messages or unexpected behavior</li>
+                <li>Steps you've already tried</li>
+            </ul>
+        </section>
+        
+        <!-- Navigation -->
+        <nav class="page-nav">
+            <a href="best-practices.html" class="btn btn-secondary">← Best Practices</a>
+            <a href="index.html" class="btn btn-primary">Back to Home →</a>
+        </nav>
+    </main>
+    
+    <script src="assets/js/app.js"></script>
+    <script>
+        // FAQ Toggle Functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const faqItems = document.querySelectorAll('.faq-item');
+            
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question');
+                question.addEventListener('click', () => {
+                    // Close other items
+                    faqItems.forEach(otherItem => {
+                        if (otherItem !== item) {
+                            otherItem.classList.remove('active');
+                        }
+                    });
+                    
+                    // Toggle current item
+                    item.classList.toggle('active');
+                });
+            });
+        });
+    </script>
+</body>
+</html>

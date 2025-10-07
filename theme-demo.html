@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <meta name="description" content="Theme Switcher Demo - Light, Dark, and Festive Modes">
+    <title>Theme Switcher Demo - CursorRules Guide</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <style>
+        :root {
+            --ink: #000;
+            --paper: #fff;
+            --gray-1: #f5f5f5;
+            --gray-2: #e5e5e5;
+            --gray-3: #d4d4d4;
+            --gray-4: #a3a3a3;
+            --gray-5: #737373;
+            --gray-6: #525252;
+            --gray-7: #404040;
+            --gray-8: #262626;
+            --gray-9: #171717;
+            --gray-10: #0a0a0a;
+            --accent: #3b82f6;
+            --accent-hover: #2563eb;
+            --accent-light: #dbeafe;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --error: #ef4444;
+            --text-primary: var(--ink);
+            --bg-primary: var(--paper);
+            --bg-secondary: var(--gray-1);
+            --border-color: var(--gray-2);
+            --shadow-color: rgba(0, 0, 0, 0.1);
+            --space-1: 0.25rem;
+            --space-2: 0.5rem;
+            --space-3: 0.75rem;
+            --space-4: 1rem;
+            --space-5: 1.5rem;
+            --space-6: 2rem;
+            --space-7: 3rem;
+            --space-8: 4rem;
+            --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+            --ease-spring: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        /* Dark Theme */
+        [data-theme="dark"] {
+            --ink: #ffffff;
+            --paper: #0a0a0a;
+            --gray-0: #171717;
+            --gray-1: #262626;
+            --gray-2: #404040;
+            --gray-3: #525252;
+            --gray-4: #737373;
+            --gray-5: #a3a3a3;
+            --gray-6: #d4d4d4;
+            --gray-7: #e5e5e5;
+            --gray-8: #f5f5f5;
+            --gray-9: #fcfcfc;
+            --gray-10: #ffffff;
+            --accent: #60a5fa;
+            --accent-hover: #3b82f6;
+            --accent-light: #1e3a8a;
+            --bg-primary: var(--paper);
+            --bg-secondary: var(--gray-0);
+            --text-primary: var(--ink);
+            --text-secondary: var(--gray-6);
+            --border-color: var(--gray-2);
+            --shadow-color: rgba(0, 0, 0, 0.3);
+        }
+        
+        /* Festive Theme - Pink & Happy Colors */
+        [data-theme="festive"] {
+            --ink: #2d1b69;
+            --paper: #fef7ff;
+            --gray-0: #fdf2ff;
+            --gray-1: #fce7ff;
+            --gray-2: #f3e8ff;
+            --gray-3: #e9d5ff;
+            --gray-4: #d8b4fe;
+            --gray-5: #c084fc;
+            --gray-6: #a855f7;
+            --gray-7: #9333ea;
+            --gray-8: #7c3aed;
+            --gray-9: #6d28d9;
+            --gray-10: #581c87;
+            --accent: #ec4899;
+            --accent-hover: #db2777;
+            --accent-light: #fce7f3;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --error: #ef4444;
+            --bg-primary: linear-gradient(135deg, #fef7ff 0%, #fdf2ff 50%, #fce7ff 100%);
+            --bg-secondary: #f3e8ff;
+            --text-primary: #2d1b69;
+            --text-secondary: #7c3aed;
+            --border-color: #e9d5ff;
+            --shadow-color: rgba(236, 72, 153, 0.2);
+            --festive-pink: #ec4899;
+            --festive-purple: #a855f7;
+            --festive-mint: #10b981;
+            --festive-sunshine: #f59e0b;
+            --festive-coral: #ff6b6b;
+            --festive-lavender: #c084fc;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, system-ui, sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background: var(--bg-primary);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            min-height: 100vh;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: var(--space-8) var(--space-6);
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: var(--space-8);
+        }
+        
+        .title {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: var(--space-4);
+            color: var(--text-primary);
+        }
+        
+        .subtitle {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            margin-bottom: var(--space-6);
+        }
+        
+        .demo-section {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: var(--space-6);
+            margin-bottom: var(--space-6);
+            transition: all 0.3s ease;
+        }
+        
+        .demo-section:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px var(--shadow-color);
+        }
+        
+        .demo-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: var(--space-4);
+            color: var(--text-primary);
+        }
+        
+        .demo-content {
+            color: var(--text-secondary);
+            margin-bottom: var(--space-4);
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            padding: var(--space-3) var(--space-5);
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            gap: var(--space-2);
+            background: var(--accent);
+            color: white;
+        }
+        
+        .btn:hover {
+            background: var(--accent-hover);
+            transform: translateY(-1px);
+        }
+        
+        .btn-secondary {
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+        }
+        
+        .btn-secondary:hover {
+            background: var(--bg-secondary);
+            border-color: var(--accent);
+        }
+        
+        /* Theme Switcher */
+        .theme-switcher {
+            position: fixed;
+            top: var(--space-6);
+            right: var(--space-6);
+            z-index: 1001;
+            display: flex;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: var(--space-1);
+            box-shadow: 0 4px 12px var(--shadow-color);
+            backdrop-filter: blur(10px);
+        }
+        
+        .theme-switcher button {
+            background: transparent;
+            border: none;
+            padding: var(--space-2) var(--space-3);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 1.25rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .theme-switcher button:hover {
+            background: var(--accent-light);
+            transform: scale(1.1);
+        }
+        
+        .theme-switcher button.active {
+            background: var(--accent);
+            color: white;
+            box-shadow: 0 1px 3px var(--shadow-color);
+        }
+        
+        /* Festive Animations */
+        [data-theme="festive"] .title::before {
+            content: '🌸';
+            margin-right: var(--space-2);
+            animation: bounce 2s infinite;
+        }
+        
+        [data-theme="festive"] .title::after {
+            content: '✨';
+            margin-left: var(--space-2);
+            animation: bounce 2s infinite 0.5s;
+        }
+        
+        [data-theme="festive"] .demo-section:hover {
+            border-color: var(--festive-pink);
+            box-shadow: 0 8px 25px rgba(236, 72, 153, 0.3);
+            transform: translateY(-2px) scale(1.02);
+        }
+        
+        [data-theme="festive"] .btn {
+            background: linear-gradient(45deg, var(--festive-pink), var(--festive-purple));
+            background-size: 200% 200%;
+            animation: gradientShift 2s ease-in-out infinite;
+        }
+        
+        /* Festive Particles */
+        .festive-particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        .festive-particle {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: var(--festive-pink);
+            border-radius: 50%;
+            animation: float 6s infinite linear;
+        }
+        
+        .festive-particle:nth-child(2n) {
+            background: var(--festive-purple);
+            animation-duration: 8s;
+        }
+        
+        .festive-particle:nth-child(3n) {
+            background: var(--festive-mint);
+            animation-duration: 10s;
+        }
+        
+        .festive-particle:nth-child(4n) {
+            background: var(--festive-sunshine);
+            animation-duration: 7s;
+        }
+        
+        .festive-particle:nth-child(5n) {
+            background: var(--festive-coral);
+            animation-duration: 9s;
+        }
+        
+        /* Animations */
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-10px);
+            }
+            60% {
+                transform: translateY(-5px);
+            }
+        }
+        
+        @keyframes gradientShift {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: var(--space-6) var(--space-4);
+            }
+            
+            .title {
+                font-size: 2.5rem;
+            }
+            
+            .theme-switcher {
+                top: var(--space-4);
+                right: var(--space-4);
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1 class="title">Theme Switcher Demo</h1>
+            <p class="subtitle">Experience Light, Dark, and Festive modes with smooth transitions and delightful animations!</p>
+        </header>
+        
+        <div class="demo-section">
+            <h2 class="demo-title">Light Mode ☀️</h2>
+            <p class="demo-content">Clean, bright interface perfect for daytime coding. Easy on the eyes with high contrast and clear typography.</p>
+            <button class="btn" onclick="switchTheme('light')">Switch to Light</button>
+        </div>
+        
+        <div class="demo-section">
+            <h2 class="demo-title">Dark Mode 🌙</h2>
+            <p class="demo-content">Sleek dark interface ideal for night coding sessions. Reduces eye strain and looks professional.</p>
+            <button class="btn" onclick="switchTheme('dark')">Switch to Dark</button>
+        </div>
+        
+        <div class="demo-section">
+            <h2 class="demo-title">Festive Mode 🌸</h2>
+            <p class="demo-content">Celebrate with this joyful theme! Features pink and happy colors, floating particles, and delightful animations.</p>
+            <button class="btn" onclick="switchTheme('festive')">Switch to Festive</button>
+        </div>
+        
+        <div class="demo-section">
+            <h2 class="demo-title">Features</h2>
+            <p class="demo-content">
+                ✨ Smooth transitions between themes<br>
+                🎨 Custom color palettes for each mode<br>
+                🌸 Pink and happy festive colors<br>
+                💾 Theme preference saved in localStorage<br>
+                📱 Fully responsive design<br>
+                ♿ Accessible with proper contrast ratios
+            </p>
+            <a href="index.html" class="btn btn-secondary">Back to Guide</a>
+        </div>
+    </div>
+    
+    <script>
+        // Theme switching functionality
+        function switchTheme(themeName) {
+            document.documentElement.setAttribute('data-theme', themeName);
+            localStorage.setItem('theme', themeName);
+            
+            // Update theme switcher buttons
+            document.querySelectorAll('.theme-switcher button').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.getAttribute('data-theme') === themeName) {
+                    btn.classList.add('active');
+                }
+            });
+            
+            // Handle festive effects
+            if (themeName === 'festive') {
+                initFestiveEffects();
+            } else {
+                removeFestiveEffects();
+            }
+            
+            // Add transition effect
+            document.body.style.transition = 'all 0.3s ease';
+            setTimeout(() => {
+                document.body.style.transition = '';
+            }, 300);
+        }
+        
+        function initFestiveEffects() {
+            removeFestiveEffects();
+            
+            const particleContainer = document.createElement('div');
+            particleContainer.className = 'festive-particles';
+            document.body.appendChild(particleContainer);
+            
+            createFloatingParticles(particleContainer);
+            createConfettiEffect();
+        }
+        
+        function removeFestiveEffects() {
+            const particles = document.querySelector('.festive-particles');
+            if (particles) {
+                particles.remove();
+            }
+        }
+        
+        function createFloatingParticles(container) {
+            const particleCount = 20;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'festive-particle';
+                
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 6 + 's';
+                particle.style.animationDuration = (6 + Math.random() * 4) + 's';
+                
+                container.appendChild(particle);
+            }
+        }
+        
+        function createConfettiEffect() {
+            const colors = ['#ec4899', '#a855f7', '#10b981', '#f59e0b', '#ff6b6b', '#c084fc'];
+            const confettiCount = 50;
+            
+            for (let i = 0; i < confettiCount; i++) {
+                const confetti = document.createElement('div');
+                confetti.style.position = 'fixed';
+                confetti.style.width = '10px';
+                confetti.style.height = '10px';
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.left = Math.random() * 100 + '%';
+                confetti.style.top = '-10px';
+                confetti.style.zIndex = '9999';
+                confetti.style.pointerEvents = 'none';
+                confetti.style.borderRadius = '50%';
+                
+                document.body.appendChild(confetti);
+                
+                const animation = confetti.animate([
+                    { transform: 'translateY(0px) rotate(0deg)', opacity: 1 },
+                    { transform: `translateY(${window.innerHeight + 100}px) rotate(720deg)`, opacity: 0 }
+                ], {
+                    duration: 3000 + Math.random() * 2000,
+                    easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)'
+                });
+                
+                animation.addEventListener('finish', () => {
+                    confetti.remove();
+                });
+            }
+        }
+        
+        // Initialize theme switcher
+        function initThemeSwitcher() {
+            const switcher = document.createElement('div');
+            switcher.className = 'theme-switcher';
+            
+            const themes = [
+                { name: 'light', icon: '☀️', label: 'Light Mode' },
+                { name: 'dark', icon: '🌙', label: 'Dark Mode' },
+                { name: 'festive', icon: '🌸', label: 'Festive Mode' }
+            ];
+            
+            themes.forEach(theme => {
+                const button = document.createElement('button');
+                button.innerHTML = theme.icon;
+                button.setAttribute('aria-label', theme.label);
+                button.setAttribute('data-theme', theme.name);
+                
+                if (theme.name === localStorage.getItem('theme') || 
+                    (!localStorage.getItem('theme') && theme.name === 'light')) {
+                    button.classList.add('active');
+                }
+                
+                button.addEventListener('click', () => {
+                    switchTheme(theme.name);
+                });
+                
+                switcher.appendChild(button);
+            });
+            
+            document.body.appendChild(switcher);
+        }
+        
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            const currentTheme = localStorage.getItem('theme') || 'light';
+            document.documentElement.setAttribute('data-theme', currentTheme);
+            
+            initThemeSwitcher();
+            
+            if (currentTheme === 'festive') {
+                initFestiveEffects();
+            }
+        });
+    </script>
+</body>
+</html>
